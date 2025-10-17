@@ -1,20 +1,20 @@
 import Link from 'next/link';
 import { getAllBlogPosts } from '@/lib/mdx';
-import { ArrowLeft } from 'lucide-react';
+import Header from '@/components/Header';
 
 export default async function BlogPage() {
   const posts = await getAllBlogPosts();
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-6 max-w-4xl py-20">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-8"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          ホームに戻る
-        </Link>
+    <>
+      <Header />
+      <div className="min-h-screen bg-gray-50 relative overflow-hidden pt-20">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+                           linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px)`,
+          backgroundSize: '64px 64px'
+        }}></div>
+        <div className="relative container mx-auto px-6 max-w-4xl py-20">
 
         <h1 className="text-4xl font-bold mb-2">ブログ</h1>
         <p className="text-gray-600 mb-12">技術や開発に関する記事を書いています</p>
@@ -54,5 +54,6 @@ export default async function BlogPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

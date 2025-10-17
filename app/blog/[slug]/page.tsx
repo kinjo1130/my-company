@@ -5,6 +5,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import 'highlight.js/styles/github-dark.css';
+import Header from '@/components/Header';
 
 export async function generateStaticParams() {
   const slugs = await getAllBlogSlugs();
@@ -47,8 +48,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-6 max-w-4xl py-20">
+    <>
+      <Header />
+      <div className="min-h-screen bg-gray-50 pt-20 relative overflow-hidden">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+                           linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px)`,
+          backgroundSize: '64px 64px'
+        }}></div>
+        <div className="relative container mx-auto px-6 max-w-4xl py-20">
         <Link
           href="/blog"
           className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-8"
@@ -96,5 +104,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </article>
       </div>
     </div>
+    </>
   );
 }

@@ -1,7 +1,7 @@
-import { Calendar, Bell, ArrowLeft } from 'lucide-react';
+import Header from '@/components/Header';
 
 interface NewsListProps {
-  onBack: () => void;
+  onBack?: () => void;
 }
 
 export default function NewsList({ onBack }: NewsListProps) {
@@ -73,71 +73,41 @@ export default function NewsList({ onBack }: NewsListProps) {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="border-b border-gray-200 bg-white sticky top-0 z-10">
-        <div className="container mx-auto px-6 py-5 max-w-6xl">
-          <button
-            onClick={onBack}
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            ホームに戻る
-          </button>
-        </div>
-      </header>
-
-      {/* Hero */}
-      <section className="relative py-20 bg-gray-50 overflow-hidden">
+    <>
+      <Header />
+      <div className="min-h-screen bg-gray-50 relative overflow-hidden pt-20">
         <div className="absolute inset-0" style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
                            linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px)`,
           backgroundSize: '64px 64px'
         }}></div>
-        <div className="relative container mx-auto px-6 max-w-6xl">
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-3 mb-6">
-              <Bell className="w-8 h-8 text-gray-900" />
-              <h1 className="text-gray-900">お知らせ</h1>
-            </div>
-            <p className="text-gray-600 leading-relaxed">
-              Yamada Techの最新情報、サービスのお知らせ、イベント情報などをお届けします。
-            </p>
-          </div>
-        </div>
-      </section>
+        <div className="relative container mx-auto px-6 max-w-4xl py-20">
+          <h1 className="text-4xl font-bold mb-2">お知らせ</h1>
+          <p className="text-gray-600 mb-12">最新情報、サービスのお知らせ、イベント情報などをお届けします</p>
 
-      {/* News List */}
-      <section className="py-20">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <div className="max-w-4xl mx-auto space-y-6">
+          <div className="space-y-8">
             {newsList.map((news) => (
               <div
                 key={news.id}
-                className="bg-white border border-gray-200 hover:border-gray-300 p-8 transition-all"
+                className="block bg-white p-6 rounded-lg border border-gray-200 hover:border-gray-400 transition-all"
               >
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
-                  <div className="flex items-center gap-3 text-sm text-gray-500">
-                    <Calendar className="w-4 h-4" />
-                    <span>{news.date}</span>
-                  </div>
-                  <span className={`px-3 py-1 text-xs w-fit ${getCategoryColor(news.category)}`}>
+                <div className="flex items-center gap-3 mb-3">
+                  <span className={`px-3 py-1 text-xs rounded ${getCategoryColor(news.category)}`}>
                     {news.category}
                   </span>
+                  <span className="text-sm text-gray-500">{news.date}</span>
                 </div>
 
-                <h2 className="text-gray-900 mb-3">
+                <h2 className="text-2xl font-bold mb-2 text-gray-900">
                   {news.title}
                 </h2>
 
-                <p className="text-gray-600 leading-relaxed">
-                  {news.content}
-                </p>
+                <p className="text-gray-600">{news.content}</p>
               </div>
             ))}
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </>
   );
 }

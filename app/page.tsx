@@ -11,6 +11,7 @@ import type { BlogPost } from '@/lib/mdx';
 import { Loading } from '@/components/Loading';
 import { projects } from '@/data/projects';
 import { ROUTES, SECTIONS } from '@/lib/routes';
+import Header from '@/components/Header';
 
 type PageType = 'home' | 'career' | 'project' | 'blog' | 'blogDetail' | 'news';
 
@@ -159,30 +160,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <div className="flex justify-between items-center h-20">
-            <div>
-              <button onClick={navigateToHome} className="text-gray-900 hover:text-gray-600 transition-colors tracking-tight">
-                Yamada Tech
-              </button>
-            </div>
-            <nav className="hidden md:flex gap-12 items-center">
-              <button onClick={() => scrollToSection(SECTIONS.ABOUT)} className="text-gray-600 hover:text-gray-900 transition-colors text-sm">会社概要</button>
-              <button onClick={() => scrollToSection(SECTIONS.SERVICES)} className="text-gray-600 hover:text-gray-900 transition-colors text-sm">サービス</button>
-              <button onClick={() => scrollToSection(SECTIONS.WORKS)} className="text-gray-600 hover:text-gray-900 transition-colors text-sm">実績</button>
-              <button onClick={navigateToBlog} className="text-gray-600 hover:text-gray-900 transition-colors text-sm">ブログ</button>
-              <button onClick={navigateToNews} className="text-gray-600 hover:text-gray-900 transition-colors text-sm">お知らせ</button>
-              <button
-                onClick={() => scrollToSection(SECTIONS.CONTACT)}
-                className="bg-gray-900 text-white px-6 py-2.5 hover:bg-gray-800 transition-colors text-sm"
-              >
-                お問い合わせ
-              </button>
-            </nav>
-          </div>
-        </div>
-      </header>
+     <Header />
 
       {/* Hero */}
       <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
