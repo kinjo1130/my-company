@@ -1,0 +1,58 @@
+import Link from 'next/link';
+import { getAllBlogPosts } from '@/lib/mdx';
+import { ArrowLeft } from 'lucide-react';
+
+export default async function BlogPage() {
+  const posts = await getAllBlogPosts();
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-6 max-w-4xl py-20">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-8"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          ホームに戻る
+        </Link>
+
+        <h1 className="text-4xl font-bold mb-2">ブログ</h1>
+        <p className="text-gray-600 mb-12">技術や開発に関する記事を書いています</p>
+
+        <div className="space-y-8">
+          {posts.map((post) => (
+            <Link
+              key={post.slug}
+              href={`/blog/${post.slug}`}
+              className="block bg-white p-6 rounded-lg border border-gray-200 hover:border-gray-400 transition-all"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <span className="px-3 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+                  {post.category}
+                </span>
+                <span className="text-sm text-gray-500">{post.date}</span>
+              </div>
+
+              <h2 className="text-2xl font-bold mb-2 text-gray-900 hover:text-gray-600 transition-colors">
+                {post.title}
+              </h2>
+
+              <p className="text-gray-600 mb-4">{post.excerpt}</p>
+
+              <div className="flex flex-wrap gap-2">
+                {post.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
