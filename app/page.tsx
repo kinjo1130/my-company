@@ -304,7 +304,7 @@ export default function App() {
                 <div className="flex items-start gap-3">
                   <Building2 className="w-5 h-5 text-gray-400 mt-0.5" />
                   <div>
-                    <p className="text-gray-500 text-sm">会社名</p>
+                    <p className="text-gray-500 text-sm">屋号名</p>
                     <p className="text-gray-900">Yamada Tech（山田技術事務所）</p>
                   </div>
                 </div>
@@ -558,7 +558,7 @@ export default function App() {
           
           <div className="max-w-2xl">
             <p className="text-gray-700 leading-relaxed mb-10">
-              新規開発のご相談、既存システムの改善、技術顧問など、お気軽にお問い合わせください。
+              新規開発のご相談、既存システムの改善など、お気軽にお問い合わせください。
               ご相談・お見積もりは無料です。2営業日以内にご返信いたします。
             </p>
 
@@ -569,19 +569,6 @@ export default function App() {
                   contact@yamada-tech.com
                   <ExternalLink className="w-4 h-4" />
                 </a>
-              </div>
-
-              <div className="border-b border-gray-200 pb-6">
-                <p className="text-gray-600 mb-2">営業時間</p>
-                <p className="text-gray-900">平日 9:00 - 18:00</p>
-                <p className="text-gray-600 mt-1">※土日祝日は返信が遅れる場合があります</p>
-              </div>
-
-              <div className="border-b border-gray-200 pb-6">
-                <p className="text-gray-600 mb-2">料金目安</p>
-                <p className="text-gray-900">時間単価：5,000円〜 / 時</p>
-                <p className="text-gray-900">月額契約：応相談</p>
-                <p className="text-gray-600 mt-1">※プロジェクトの内容に応じて柔軟に対応いたします</p>
               </div>
 
               <a 
