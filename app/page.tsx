@@ -1,5 +1,5 @@
 'use client';
-import { Mail, ExternalLink, ArrowRight, Github, Code2, Briefcase, Building2, MapPin } from 'lucide-react';
+import { ExternalLink, ArrowRight, Github, Code2, Briefcase, Building2, MapPin } from 'lucide-react';
 import { ImageWithFallback } from '@/components/Fallback';
 import { useState, useEffect, Suspense } from 'react';
 import CareerDetail from '@/components/CareerDetail';
@@ -11,7 +11,9 @@ import type { BlogPost } from '@/lib/mdx';
 import { Loading } from '@/components/Loading';
 import { projects } from '@/data/projects';
 import { ROUTES, SECTIONS } from '@/lib/routes';
+import { SITE, OWNER } from '@/lib/constants';
 import Header from '@/components/Header';
+import ContactForm from '@/components/ContactForm';
 
 type PageType = 'home' | 'career' | 'project' | 'blog' | 'blogDetail' | 'news';
 
@@ -180,15 +182,15 @@ export default function App() {
                   <Building2 className="w-4 h-4" />
                   Web Development Company
                 </div>
-                
+
                 <h1 className="text-gray-900 leading-[1.1]">
-                  モダンなWeb開発で<br />
+                  ソフトウェアで<br />
                   ビジネスを加速
                 </h1>
-                
+
                 <p className="text-gray-600 leading-relaxed max-w-xl">
-                  Yamada Techは、Webアプリケーション開発を専門とする技術事務所です。
-                  スタートアップから中小企業まで、要件定義から設計・開発・運���まで一貫してサポートいたします。
+                  {SITE.NAME}は、お客様のビジネス課題をソフトウェアで解決します。
+                  要件定義から設計・開発・運用まで一貫してサポートいたします。
                 </p>
               </div>
 
@@ -237,55 +239,36 @@ export default function App() {
             <div>
               <h3 className="text-gray-900 mb-6">代表について</h3>
               <div className="mb-8">
-                <ImageWithFallback 
+                <ImageWithFallback
                   src="https://images.unsplash.com/photo-1624467719524-5d0a3da8d06c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxqYXBhbmVzZSUyMGJ1c2luZXNzJTIwcHJvZmVzc2lvbmFsfGVufDF8fHx8MTc2MDcxNjQ5OHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
                   alt="代表 山田太郎"
                   className="w-full aspect-[4/5] object-cover mb-4"
                 />
-                <p className="text-gray-900 mb-1">山田 太郎</p>
-                <p className="text-gray-600 text-sm">代表 / フルスタックエンジニア</p>
-              </div>
-              
-              <div className="space-y-4">
-                <p className="text-gray-700 leading-relaxed">
-                  2015年に大手SIerに入社後、金融システム開発に従事。その後Web系スタートアップに転職し、
-                  プロダクト開発の最前線を経験。2020年にYamada Techを創業しました。
-                </p>
-                <p className="text-gray-700 leading-relaxed">
-                  これまでECサイト、SaaS、社内業務システムなど、30以上のプロジェクトに携わってきました。
-                  技術選定から設計、実装、運用まで一貫して対応できることが強みです。
-                </p>
-                
-                <button
-                  onClick={navigateToCareer}
-                  className="inline-flex items-center gap-2 text-gray-900 hover:text-gray-600 border-b border-gray-900 hover:border-gray-600 transition-colors pb-1"
-                >
-                  代表の��しい経歴
-                  <ArrowRight className="w-4 h-4" />
-                </button>
+                <p className="text-gray-900 mb-1">{OWNER.NAME}</p>
+                <p className="text-gray-600 text-sm">{OWNER.TITLE}</p>
               </div>
             </div>
 
             <div className="space-y-8">
               <div>
-                <h3 className="text-gray-900 mb-4">事業内容</h3>
-                <div className="space-y-3">
-                  <div className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 bg-gray-900 rounded-full mt-2"></div>
-                    <p className="text-gray-700">Webアプリケーション開発</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 bg-gray-900 rounded-full mt-2"></div>
-                    <p className="text-gray-700">既存システムの改善・機能追加</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 bg-gray-900 rounded-full mt-2"></div>
-                    <p className="text-gray-700">技術コンサルティング</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 bg-gray-900 rounded-full mt-2"></div>
-                    <p className="text-gray-700">自社プロダクト開発</p>
-                  </div>
+                <h3 className="text-gray-900 mb-4">経歴</h3>
+                <div className="space-y-4">
+                  <p className="text-gray-700 leading-relaxed">
+                    2015年に大手SIerに入社後、金融システム開発に従事。その後Web系スタートアップに転職し、
+                    プロダクト開発の最前線を経験。2020年に{SITE.NAME}を創業しました。
+                  </p>
+                  <p className="text-gray-700 leading-relaxed">
+                    これまでECサイト、SaaS、社内業務システムなど、30以上のプロジェクトに携わってきました。
+                    技術選定から設計、実装、運用まで一貫して対応できることが強みです。
+                  </p>
+
+                  <button
+                    onClick={navigateToCareer}
+                    className="inline-flex items-center gap-2 text-gray-900 hover:text-gray-600 border-b border-gray-900 hover:border-gray-600 transition-colors pb-1"
+                  >
+                    代表のこれまでの経歴
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
 
@@ -305,21 +288,21 @@ export default function App() {
                   <Building2 className="w-5 h-5 text-gray-400 mt-0.5" />
                   <div>
                     <p className="text-gray-500 text-sm">屋号名</p>
-                    <p className="text-gray-900">Yamada Tech（山田技術事務所）</p>
+                    <p className="text-gray-900">{SITE.FULL_NAME}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-gray-400 mt-0.5" />
                   <div>
                     <p className="text-gray-500 text-sm">所在地</p>
-                    <p className="text-gray-900">東京都渋谷区</p>
+                    <p className="text-gray-900">{SITE.LOCATION}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Code2 className="w-5 h-5 text-gray-400 mt-0.5" />
                   <div>
                     <p className="text-gray-500 text-sm">創業</p>
-                    <p className="text-gray-900">2020年4月</p>
+                    <p className="text-gray-900">{SITE.FOUNDED}</p>
                   </div>
                 </div>
               </div>
@@ -390,6 +373,25 @@ export default function App() {
                 </p>
                 <p className="text-gray-600">
                   実績：技術顧問契約、開発チームのメンタリング、採用面接の技術評価 など
+                </p>
+              </div>
+            </div>
+
+            <div className="h-px bg-gray-200"></div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="md:col-span-1">
+                <h3 className="text-gray-900 mb-2">AI活用開発</h3>
+                <p className="text-gray-500">AI Integration</p>
+              </div>
+              <div className="md:col-span-2">
+                <p className="text-gray-700 leading-relaxed mb-4">
+                  LLM（大規模言語モデル）を活用したWebアプリケーション開発を支援します。
+                  OpenAI、Anthropicなどの各種AI APIの統合、RAGシステムの構築、
+                  AIチャットボットやアシスタント機能の実装に対応。業務効率化やユーザー体験向上に貢献します。
+                </p>
+                <p className="text-gray-600">
+                  実績：AIチャットボット開発、文書検索システム（RAG）、画像生成機能統合、業務自動化ツール など
                 </p>
               </div>
             </div>
@@ -555,29 +557,43 @@ export default function App() {
         }}></div>
         <div className="relative container mx-auto px-6 max-w-5xl">
           <h2 className="mb-8 text-gray-900">お問い合わせ</h2>
-          
-          <div className="max-w-2xl">
-            <p className="text-gray-700 leading-relaxed mb-10">
-              新規開発のご相談、既存システムの改善など、お気軽にお問い合わせください。
-              ご相談・お見積もりは無料です。2営業日以内にご返信いたします。
-            </p>
 
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Left: Form */}
+            <div>
+              <p className="text-gray-700 leading-relaxed mb-8">
+                新規開発のご相談、既存システムの改善など、お気軽にお問い合わせください。
+                ご相談・お見積もりは無料です。2営業日以内にご返信いたします。
+              </p>
+
+              <ContactForm />
+            </div>
+
+            {/* Right: Info */}
             <div className="space-y-6">
-              <div className="border-b border-gray-200 pb-6">
-                <p className="text-gray-600 mb-2">メール</p>
-                <a href="mailto:contact@yamada-tech.com" className="text-gray-900 hover:text-gray-600 inline-flex items-center gap-2">
-                  contact@yamada-tech.com
+              <div className="bg-white p-6 border border-gray-200">
+                <h3 className="text-gray-900 mb-4">直接メールで問い合わせる</h3>
+                <p className="text-gray-600 mb-3">
+                  フォームではなく、メールでのお問い合わせをご希望の方はこちらからお願いします。
+                </p>
+                <a href={`mailto:${SITE.EMAIL}`} className="text-gray-900 hover:text-gray-600 inline-flex items-center gap-2">
+                  {SITE.EMAIL}
                   <ExternalLink className="w-4 h-4" />
                 </a>
               </div>
 
-              <a 
-                href="mailto:contact@yamada-tech.com" 
-                className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 hover:bg-gray-800 transition-colors mt-4"
-              >
-                <Mail className="w-4 h-4" />
-                メールで問い合わせる
-              </a>
+              <div className="bg-white p-6 border border-gray-200">
+                <h3 className="text-gray-900 mb-4">営業時間</h3>
+                <p className="text-gray-700 mb-2">平日 9:00 - 18:00</p>
+                <p className="text-gray-600 text-sm">※土日祝日は返信が遅れる場合があります</p>
+              </div>
+
+              <div className="bg-white p-6 border border-gray-200">
+                <h3 className="text-gray-900 mb-4">料金目安</h3>
+                <p className="text-gray-700 mb-1">時間単価：5,000円〜 / 時</p>
+                <p className="text-gray-700 mb-2">月額契約：応相談</p>
+                <p className="text-gray-600 text-sm">※プロジェクトの内容に応じて柔軟に対応いたします</p>
+              </div>
             </div>
           </div>
         </div>
@@ -586,7 +602,14 @@ export default function App() {
       {/* Footer */}
       <footer className="border-t border-gray-200 py-8">
         <div className="container mx-auto px-6 max-w-5xl">
-          <p className="text-gray-500">© 2025 Yamada Tech. All rights reserved.</p>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-gray-500">© 2025 {SITE.NAME}. All rights reserved.</p>
+            <nav className="flex gap-6">
+              <a href={ROUTES.PRIVACY} className="text-gray-500 hover:text-gray-900 transition-colors text-sm">
+                プライバシーポリシー
+              </a>
+            </nav>
+          </div>
         </div>
       </footer>
     </div>

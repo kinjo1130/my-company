@@ -6,6 +6,7 @@ export const ROUTES = {
   BLOG: '/blog',
   BLOG_DETAIL: (slug: string) => `/blog/${slug}`,
   NEWS: '/news',
+  PRIVACY: '/privacy',
 } as const;
 
 // セクションID定義

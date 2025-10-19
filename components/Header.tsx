@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ROUTES, SECTIONS } from "@/lib/routes";
+import { SITE } from "@/lib/constants";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
@@ -14,7 +15,7 @@ export default function Header() {
         <div className="flex justify-between items-center h-20">
           <div>
             <Link href={ROUTES.HOME} className="text-gray-900 hover:text-gray-600 transition-colors tracking-tight">
-              Yamada Tech
+              {SITE.NAME}
             </Link>
           </div>
 
