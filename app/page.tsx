@@ -2,7 +2,6 @@
 import { ExternalLink, ArrowRight, Github, Code2, Briefcase, Building2, MapPin } from 'lucide-react';
 import { ImageWithFallback } from '@/components/Fallback';
 import { useState, useEffect, Suspense } from 'react';
-import CareerDetail from '@/components/CareerDetail';
 import ProjectDetail from '@/components/ProjectDetail';
 import BlogList from '@/components/BlogList';
 import BlogDetail from '@/components/BlogDetail';
@@ -10,12 +9,12 @@ import NewsList from '@/components/NewsList';
 import type { BlogPost } from '@/lib/mdx';
 import { Loading } from '@/components/Loading';
 import { projects } from '@/data/projects';
-import { ROUTES, SECTIONS } from '@/lib/routes';
+import { ROUTES } from '@/lib/routes';
 import { SITE, OWNER } from '@/lib/constants';
 import Header from '@/components/Header';
 import ContactForm from '@/components/ContactForm';
 
-type PageType = 'home' | 'career' | 'project' | 'blog' | 'blogDetail' | 'news';
+type PageType = 'home' | 'project' | 'blog' | 'blogDetail' | 'news';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageType>('home');
@@ -30,7 +29,6 @@ export default function App() {
       const path = window.location.pathname;
 
       if (path === ROUTES.CAREER) {
-        setCurrentPage('career');
         setSelectedProjectId(null);
         setSelectedBlogId(null);
       } else if (path.startsWith('/project/')) {
@@ -129,10 +127,6 @@ export default function App() {
     }
   };
 
-  if (currentPage === 'career') {
-    return <CareerDetail onBack={navigateToHome} />;
-  }
-
   if (currentPage === 'project' && selectedProject) {
     return <ProjectDetail project={selectedProject} onBack={navigateToHome} />;
   }
@@ -165,7 +159,7 @@ export default function App() {
      <Header />
 
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute inset-0" style={{
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
@@ -174,52 +168,37 @@ export default function App() {
           }}></div>
         </div>
 
-        <div className="relative container mx-auto px-6 max-w-6xl py-32">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-8">
-              <div className="space-y-6">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 text-sm">
-                  <Building2 className="w-4 h-4" />
-                  Web Development Company
-                </div>
-
-                <h1 className="text-gray-900 leading-[1.1]">
-                  ソフトウェアで<br />
-                  ビジネスを加速
-                </h1>
-
-                <p className="text-gray-600 leading-relaxed max-w-xl">
-                  {SITE.NAME}は、お客様のビジネス課題をソフトウェアで解決します。
-                  要件定義から設計・開発・運用まで一貫してサポートいたします。
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-4">
-                <button
-                  onClick={() => scrollToSection(SECTIONS.CONTACT)}
-                  className="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-8 py-4 hover:bg-gray-800 transition-all"
-                >
-                  お問い合わせ
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => scrollToSection(SECTIONS.WORKS)}
-                  className="inline-flex items-center justify-center gap-2 border-2 border-gray-900 text-gray-900 px-8 py-4 hover:bg-gray-900 hover:text-white transition-all"
-                >
-                  実績を見る
-                </button>
-              </div>
+        <div className="relative container mx-auto px-6 max-w-4xl text-center">
+          <div className="space-y-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 text-sm">
+              <Building2 className="w-4 h-4" />
+              Web Development Company
             </div>
 
-            <div className="relative lg:block hidden">
-              <div className="aspect-[4/5] relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-50"></div>
-                <ImageWithFallback 
-                  src="https://images.unsplash.com/photo-1607434472257-d9f8e57a643d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB3b3Jrc3BhY2UlMjBkZXNrfGVufDF8fHx8MTc2MDcxNzEzOXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-                  alt="Workspace"
-                  className="absolute inset-4 w-[calc(100%-32px)] h-[calc(100%-32px)] object-cover"
-                />
-              </div>
+            <h1 className="text-gray-900 leading-[1.1] text-5xl md:text-6xl font-bold">
+              ソフトウェアで<br />
+              ビジネスを加速
+            </h1>
+
+            <p className="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto">
+              {SITE.NAME}は、お客様のビジネス課題を一緒に伴走しながら、多角的な視点からソフトウェアで解決します。<br />
+              要件定義から設計・開発・運用まで一貫してサポートいたします。
+            </p>
+
+            <div className="flex flex-wrap gap-4 justify-center pt-4">
+              <a
+                href="#contact"
+                className="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-8 py-4 hover:bg-gray-800 transition-all"
+              >
+                お問い合わせ
+                <ArrowRight className="w-4 h-4" />
+              </a>
+              <a
+                href="#works"
+                className="inline-flex items-center justify-center gap-2 border-2 border-gray-900 text-gray-900 px-8 py-4 hover:bg-gray-900 hover:text-white transition-all"
+              >
+                実績を見る
+              </a>
             </div>
           </div>
         </div>
@@ -233,20 +212,27 @@ export default function App() {
           backgroundSize: '64px 64px'
         }}></div>
         <div className="relative container mx-auto px-6 max-w-5xl">
-          <h2 className="mb-12 text-gray-900">会社概要</h2>
+          <h2 className="mb-12 text-gray-900">事業者情報</h2>
           
           <div className="grid md:grid-cols-2 gap-16">
             <div>
               <h3 className="text-gray-900 mb-6">代表について</h3>
               <div className="mb-8">
                 <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1624467719524-5d0a3da8d06c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxqYXBhbmVzZSUyMGJ1c2luZXNzJTIwcHJvZmVzc2lvbmFsfGVufDF8fHx8MTc2MDcxNjQ5OHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-                  alt="代表 山田太郎"
+                  src="/images/representative.jpg"
+                  alt={`代表 ${OWNER.NAME}`}
                   className="w-full aspect-[4/5] object-cover mb-4"
                 />
                 <p className="text-gray-900 mb-1">{OWNER.NAME}</p>
                 <p className="text-gray-600 text-sm">{OWNER.TITLE}</p>
               </div>
+                <button
+                  onClick={navigateToCareer}
+                  className="inline-flex items-center gap-2 text-gray-900 hover:text-gray-600 border-b border-gray-900 hover:border-gray-600 transition-colors pb-1"
+                >
+                  代表の詳しい経歴
+                  <ArrowRight className="w-4 h-4" />
+                </button>
             </div>
 
             <div className="space-y-8">
@@ -254,32 +240,13 @@ export default function App() {
                 <h3 className="text-gray-900 mb-4">経歴</h3>
                 <div className="space-y-4">
                   <p className="text-gray-700 leading-relaxed">
-                    2015年に大手SIerに入社後、金融システム開発に従事。その後Web系スタートアップに転職し、
-                    プロダクト開発の最前線を経験。2020年に{SITE.NAME}を創業しました。
+                    関西大学 総合情報学部在学中（2021-2025）から、スタートアップを中心に複数の企業でインターンシップや業務委託を経験。
+                    フロントエンド開発を中心に、自社サービスや受託開発に携わってきました。
                   </p>
                   <p className="text-gray-700 leading-relaxed">
-                    これまでECサイト、SaaS、社内業務システムなど、30以上のプロジェクトに携わってきました。
-                    技術選定から設計、実装、運用まで一貫して対応できることが強みです。
+                    個人開発では「rafutabi」「MapMemo」など旅行×テクノロジーのプロダクトを公開。OSSにもコントリビュート経験あり。
+                    複数のハッカソンで受賞経験があり、技術力とプロダクト志向を評価されています。
                   </p>
-
-                  <button
-                    onClick={navigateToCareer}
-                    className="inline-flex items-center gap-2 text-gray-900 hover:text-gray-600 border-b border-gray-900 hover:border-gray-600 transition-colors pb-1"
-                  >
-                    代表のこれまでの経歴
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-
-              <div>
-                <h3 className="text-gray-900 mb-4">技術スタック</h3>
-                <div className="flex flex-wrap gap-2">
-                  {['JavaScript', 'TypeScript', 'React', 'Next.js', 'Node.js', 'Python', 'PostgreSQL', 'Supabase', 'AWS', 'Docker', 'Git'].map((tech) => (
-                    <span key={tech} className="px-3 py-1 bg-white border border-gray-200 text-gray-700 text-sm">
-                      {tech}
-                    </span>
-                  ))}
                 </div>
               </div>
 
@@ -306,6 +273,30 @@ export default function App() {
                   </div>
                 </div>
               </div>
+
+              <div>
+                <h3 className="text-gray-900 mb-4">外部リンク</h3>
+                <div className="space-y-2">
+                  <div className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 bg-gray-900 rounded-full mt-2"></div>
+                    <a href="https://www.kinjo.me/" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 underline">
+                      ポートフォリオサイト
+                    </a>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 bg-gray-900 rounded-full mt-2"></div>
+                    <a href="https://zenn.dev/kinjyo" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 underline">
+                      Zenn
+                    </a>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 bg-gray-900 rounded-full mt-2"></div>
+                    <a href="https://qiita.com/abcshotaro616" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 underline">
+                      Qiita
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -319,13 +310,13 @@ export default function App() {
           backgroundSize: '64px 64px'
         }}></div>
         <div className="relative container mx-auto px-6 max-w-5xl">
-          <h2 className="mb-12 text-gray-900">サービス</h2>
+          <h2 className="mb-12 text-gray-900 text-2xl">サービス</h2>
           
           <div className="space-y-16">
             <div className="grid md:grid-cols-3 gap-8">
               <div className="md:col-span-1">
                 <h3 className="text-gray-900 mb-2">Webアプリケーション開発</h3>
-                <p className="text-gray-500">New Development</p>
+                <p className="text-gray-500">Web Development</p>
               </div>
               <div className="md:col-span-2">
                 <p className="text-gray-700 leading-relaxed mb-4">
@@ -335,6 +326,25 @@ export default function App() {
                 </p>
                 <p className="text-gray-600">
                   実績：ECサイト、予約システム、社内管理ツール、マッチングプラットフォーム など
+                </p>
+              </div>
+            </div>
+
+            <div className="h-px bg-gray-200"></div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="md:col-span-1">
+                <h3 className="text-gray-900 mb-2">スマートフォンアプリ開発</h3>
+                <p className="text-gray-500">Mobile App Development</p>
+              </div>
+              <div className="md:col-span-2">
+                <p className="text-gray-700 leading-relaxed mb-4">
+                  iOS/Androidのネイティブアプリケーション開発を行います。
+                  Swift/Kotlin、React Nativeなど、プロジェクトの要件に最適な技術を選定し、
+                  高品質なモバイルアプリケーションを提供します。
+                </p>
+                <p className="text-gray-600">
+                  実績：業務支援アプリ、ヘルスケアアプリ、コミュニケーションアプリ など
                 </p>
               </div>
             </div>
@@ -357,26 +367,7 @@ export default function App() {
                 </p>
               </div>
             </div>
-
-            <div className="h-px bg-gray-200"></div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="md:col-span-1">
-                <h3 className="text-gray-900 mb-2">技術コンサルティング</h3>
-                <p className="text-gray-500">Consulting</p>
-              </div>
-              <div className="md:col-span-2">
-                <p className="text-gray-700 leading-relaxed mb-4">
-                  技術選定のアドバイス、アーキテクチャ設計の支援、コードレビューなど、
-                  技術面での課題解決をサポートします。
-                  スタートアップの技術顧問や、開発チームのメンタリングも行っています。
-                </p>
-                <p className="text-gray-600">
-                  実績：技術顧問契約、開発チームのメンタリング、採用面接の技術評価 など
-                </p>
-              </div>
-            </div>
-
+            
             <div className="h-px bg-gray-200"></div>
 
             <div className="grid md:grid-cols-3 gap-8">
@@ -407,7 +398,7 @@ export default function App() {
           backgroundSize: '64px 64px'
         }}></div>
         <div className="relative container mx-auto px-6 max-w-6xl">
-          <h2 className="mb-12 text-gray-900">実績</h2>
+          <h2 className="mb-12 text-gray-900 text-2xl">実績</h2>
 
           {/* Client Work */}
           <div className="mb-20">
@@ -510,7 +501,7 @@ export default function App() {
           backgroundSize: '64px 64px'
         }}></div>
         <div className="relative container mx-auto px-6 max-w-5xl">
-          <h2 className="mb-12 text-gray-900">開発の進め方</h2>
+          <h2 className="mb-12 text-gray-900 text-2xl">強み</h2>
           
           <div className="grid md:grid-cols-2 gap-x-12 gap-y-8">
             <div>

@@ -1,123 +1,211 @@
-import { ArrowLeft } from 'lucide-react';
+import { OWNER } from '@/lib/constants';
+import { ExternalLink } from 'lucide-react';
+import Link from 'next/link';
+import Header from './Header';
 
-interface CareerDetailProps {
-  onBack: () => void;
-}
-
-export default function CareerDetail({ onBack }: CareerDetailProps) {
+export default function CareerDetail() {
+  // 年表（Timeline）: 公開情報ベース
   const experiences = [
     {
-      period: '2020年4月 - 現在',
-      company: 'フリーランス',
-      role: 'Webエンジニア',
-      description: 'スタートアップから中小企業まで、幅広いクライアントのWeb開発プロジェクトに参画。新規開発から既存システムの改善、技術顧問まで多岐にわたる業務を担当。',
+      period: '2024年3月 - 現在',
+      company: 'Helpfeel（Gyazo チーム）',
+      role: 'フロントエンドエンジニア（インターン/業務委託）',
+      description:
+        'Gyazo のフロント改善・機能追加。Next.js/React を中心に、既存コードの改修、パフォーマンス/UX 改善、開発運用まわりの整備などを継続。',
       projects: [
         {
-          title: 'ECサイトリニューアル（2024年）',
-          client: 'アパレルブランドA社',
-          role: 'フロントエンドリード',
-          description: '老朽化したECサイトを Next.js + Shopify Storefront API で全面リニューアル。ヘッドレスコマースアーキテクチャを採用し、ページ速度を40%改善。SEO対策も実施し、自然検索流入が25%増加。',
-          tech: ['Next.js', 'TypeScript', 'Shopify Storefront API', 'Tailwind CSS'],
-          duration: '5ヶ月'
-        },
-        {
-          title: '予約管理SaaS開発（2023年）',
-          client: '美容室���けSaaSスタートアップB社',
-          role: 'フルスタックエンジニア',
-          description: 'MVPフェーズから参画し、予約カレンダー機能、顧客管理、決済機能を実装。Supabaseを活用することで開発期間を短縮し、3ヶ月でローンチを実現。リリース後の機能追加も継続的にサポート。',
-          tech: ['Next.js', 'Supabase', 'Stripe', 'React Query'],
-          duration: '8ヶ月（継続中）'
-        },
-        {
-          title: '社内業務システム開発（2022年）',
-          client: '製造業C社',
-          role: 'システムアーキテクト・開発リード',
-          description: 'Excel管理していた在庫・発注業務をWebシステム化。要件定義から設計、実装、導入研修まで一貫して担当。バーコードスキャナー連携や帳票出力機能も実装し、業務効率を30%改善。',
-          tech: ['React', 'Node.js', 'PostgreSQL', 'Docker'],
-          duration: '6ヶ月'
-        },
-        {
-          title: 'マッチングプラットフォーム改善（2021年）',
-          client: '人材マッチングサービスD社',
-          role: 'フロントエンドエンジニア',
-          description: '既存システムのパフォーマンス改善とUI/UX刷新を担当。不要な再レンダリングの削減、画像最適化、コード分割などにより、初期表示速度を50%改善。ユーザー離脱率が15%減少。',
-          tech: ['React', 'Redux', 'Webpack', 'AWS CloudFront'],
-          duration: '4ヶ月'
+          title: '既存機能の改善・UI最適化',
+          client: 'Gyazo',
+          role: 'フロントエンド',
+          description:
+            'UI/UX 課題の抽出と修正、アクセシビリティ/描画最適化、ViewTransition API/アニメーションの検証などを通じて体験を磨き込み。',
+          tech: ['React', 'Next.js', 'TypeScript'],
+          duration: '継続中'
         }
       ]
     },
     {
-      period: '2018年4月 - 2020年3月',
-      company: '株式会社テックスタートアップ（仮名）',
-      role: 'フルスタックエンジニア',
-      description: 'BtoB SaaS プロダクトの開発チームに所属。少数精鋭のチームで、フロントエンド・バックエンド・インフラまで幅広く担当。アジャイル開発を実践し、2週間スプリントで機能をリリース。',
-      achievements: [
-        '新機能の設計・実装を主導し、ユーザー数を2倍に拡大',
-        'CI/CDパイプラインを構築し、デプロイ時間を70%短縮',
-        '新卒エンジニア2名のメンター役を担当',
-        'コードレビュー文化の定着に貢献'
-      ],
-      tech: ['React', 'Ruby on Rails', 'PostgreSQL', 'AWS (EC2, RDS, S3)', 'CircleCI', 'Docker']
+      period: '2023年1月 - 現在',
+      company: '株式会社 ohmygod',
+      role: 'フロントエンドエンジニア（自社/受託）',
+      description:
+        'Firebase + Nuxt3/Next.js を軸に自社/受託プロダクトを開発。「ザ・スタンプラリー」「ザ・クーポン」などの BtoC 施策も担当。',
+      projects: [
+        {
+          title: '自社/受託プロダクト群',
+          client: '自社/クライアント',
+          role: 'フロントエンド/実装リード',
+          description: 'UI 実装、DB連携などの機能をモジュール化し、短サイクルでの追加開発に貢献。',
+          tech: ['Nuxt3', 'Vue', 'Firebase', 'TypeScript'],
+          duration: '継続中'
+        }
+      ]
     },
     {
-      period: '2015年4月 - 2018年3月',
-      company: 'システムインテグレーター株式会社（仮名）',
-      role: 'システムエンジニア',
-      description: '大手金融機関向けシステム開発プロジェクトに��画。主に勘定系システムのバッチ処理開発を担当。大規模システムの開発経験を通じて、堅牢性・保守性の重要性を学ぶ。',
-      achievements: [
-        '月次バッチ処理の性能改善により、処理時間を40%削減',
-        '詳細設計書の作成・レビュー担当',
-        '結合テスト・総合テストのテストリーダー経験',
-        '若手勉強会の企画・運営'
-      ],
-      tech: ['Java', 'Oracle Database', 'UNIX', 'Shell Script']
+      period: '2023年10月 - 2023年11月',
+      company: 'サイバーエージェント（Tech Job）',
+      role: 'フロントエンドエンジニア',
+      description:
+        'ViewTransition API やアニメーションを活用したインタラクション実装を短期で推進。',
+      projects: [
+        {
+          title: 'SPA 体験の強化',
+          client: '社内プロジェクト',
+          role: 'フロントエンド',
+          description: 'パフォーマンスと視覚効果の両立を意識して実装を最適化。',
+          tech: ['React', 'TypeScript', 'ViewTransition API'],
+          duration: '1ヶ月'
+        }
+      ]
+    },
+    {
+      period: '2023年10月',
+      company: 'BEENOS',
+      role: 'インターン（Nuxt2 / PHP）',
+      description: '短期インターンで既存プロダクトの改善タスクを担当。',
+      projects: [
+        {
+          title: '既存機能の改修',
+          client: '社内サービス',
+          role: 'フロントエンド',
+          description: 'Nuxt2 のコードリーディングと改修、PHP 連携の動作検証。',
+          tech: ['Nuxt2', 'PHP'],
+          duration: '2週間'
+        }
+      ]
+    },
+    {
+      period: '2023年9月 - 現在',
+      company: 'Tavern',
+      role: 'フロントエンドエンジニア（受託）',
+      description: 'コーポレート/CMS 系のフロント実装、運用改善を担当。',
+    },
+    {
+      period: '2023年7月 - 2023年8月',
+      company: 'BuySell Technologies',
+      role: 'サマーインターン（Go / React+Vite）',
+      description: 'Go での API 実装および React+Vite による管理 UI の作成。',
+    },
+    {
+      period: '2022年6月 - 2022年12月',
+      company: 'Zipunk',
+      role: 'フルスタックエンジニア（Next.js / Nest.js）',
+      description: 'Quden の新規開発。Next.js/Nest.js を用いてフロント〜API を一貫して担当。',
+    },
+    {
+      period: '2021年11月 - 2022年5月',
+      company: 'エクスコア',
+      role: 'フロントエンド（Nuxt2 学習資料整備）',
+      description: '社内向けの学習資料/テンプレの整備、実装サポート。',
+    },
+    {
+      period: '2021年5月 - 現在',
+      company: 'NPO法人 Clipper',
+      role: '業務委託（自社サービス開発）',
+      description: '学習支援/地域支援系の自社開発に継続参画。',
     }
   ];
 
+  // 個人プロダクト（主なプロジェクト）
+  const personalProjects = [
+    {
+      title: 'MapMemo',
+      year: '2025-04-06 公開',
+      description:
+        'LINE/LIFF 上で Google マップの URL を投げるだけで旅のメモを収集・整理・共有。グループ利用・タグ・検索・地図表示などを提供。',
+      tech: ['LIFF', 'Next.js', 'TypeScript', 'Firebase'],
+      link: 'https://www.kinjo.me/products/map-memo'
+    },
+    {
+      title: 'rafutabi',
+      year: '2024-04-13 公開',
+      description:
+        '訪問地点のストック/共有/検索に特化した旅行ロガー。位置情報×思い出を軽量 UI で扱える。',
+      tech: ['Next.js', 'TypeScript', 'Firebase'],
+      link: 'https://www.kinjo.me/products/rafutabi'
+    },
+    {
+      title: '美しい言葉をまとめたサイト',
+      year: '2024-04-29 公開',
+      description:
+        'タイポグラフィ/アニメ表現の実験を兼ねたミニサイト。ブロックエディタ導入や表現検証の題材にも。',
+      tech: ['Next.js', 'TypeScript', 'CSS'],
+      link: 'https://www.kinjo.me/products/beautiful-words'
+    }
+  ];
+
+  // 技術要素マップ
   const skills = {
     frontend: [
-      { name: 'JavaScript / TypeScript', level: 5, years: 8 },
-      { name: 'React', level: 5, years: 6 },
+      { name: 'TypeScript / JavaScript', level: 5, years: 5 },
+      { name: 'React', level: 5, years: 4 },
       { name: 'Next.js', level: 5, years: 3 },
-      { name: 'HTML / CSS', level: 5, years: 8 },
-      { name: 'Tailwind CSS', level: 4, years: 2 },
-      { name: 'Redux / Zustand', level: 4, years: 4 }
+      { name: 'Nuxt (v2/v3)', level: 4, years: 3 },
+      { name: 'HTML / CSS / Tailwind', level: 5, years: 5 }
     ],
     backend: [
-      { name: 'Node.js / Express', level: 4, years: 5 },
-      { name: 'Python / FastAPI', level: 3, years: 2 },
-      { name: 'Ruby on Rails', level: 3, years: 2 },
-      { name: 'PostgreSQL / MySQL', level: 4, years: 6 },
-      { name: 'REST API設計', level: 5, years: 6 }
+      { name: 'Node.js / Express', level: 4, years: 3 },
+      { name: 'Go', level: 3, years: 1 },
+      { name: 'Firebase (Auth/Firestore/Storage)', level: 4, years: 3 },
+      { name: 'REST API 設計', level: 4, years: 3 }
     ],
     infrastructure: [
-      { name: 'AWS (EC2, S3, RDS, Lambda)', level: 4, years: 5 },
-      { name: 'Docker', level: 4, years: 4 },
       { name: 'Vercel / Netlify', level: 4, years: 3 },
-      { name: 'CI/CD (GitHub Actions)', level: 4, years: 3 }
+      { name: 'Docker', level: 3, years: 2 },
+      { name: 'GitHub Actions (CI/CD)', level: 4, years: 3 }
     ],
     other: [
-      { name: 'Git / GitHub', level: 5, years: 8 },
-      { name: 'Figma', level: 3, years: 3 },
-      { name: 'アジャイル開発', level: 4, years: 5 },
-      { name: '要件定義・設計', level: 4, years: 6 }
+      { name: 'Git / GitHub', level: 5, years: 5 },
+      { name: 'TipTap（WYSIWYG）', level: 3, years: 1 },
+      { name: 'アジャイル開発', level: 4, years: 3 }
     ]
-  };
+  } as const;
 
-  const certifications = [
-    { name: '応用情報技術者', organization: 'IPA（情報処理推進機構）', year: '2017年' },
-    { name: 'AWS Certified Solutions Architect - Associate', organization: 'Amazon Web Services', year: '2021年' }
+  // 受賞
+  const awards = [
+    'Civictech Challenge Cup u-21 Code for Japan 賞',
+    'ハックツハッカソン ツマジロカップ studist 賞',
+    'ハックツハッカソン スピノカップ 最優秀賞'
+  ];
+
+  // 登壇・コミュニティ
+  const talks = [
+    {
+      title: 'LINE DC Monthly LT「LINEbotと通学の時間」',
+      host: 'LINE Developer Community',
+      link: 'https://www.youtube.com/watch?v=dummy',
+      year: '2023-2024'
+    },
+    {
+      title: 'liff-cli への ngrok SDK 対応コントリビュート紹介',
+      host: 'LINE Developer Community',
+      link: 'https://www.youtube.com/watch?v=1UslPe4uqwo',
+      year: '2024'
+    }
+  ];
+
+  // 執筆/ブログ
+  const writings = [
+    { title: 'Zenn（@kinjyo）', link: 'https://zenn.dev/kinjyo' },
+    { title: 'Qiita（@abcshotaro616）', link: 'https://qiita.com/abcshotaro616' }
+  ];
+
+  // リンク集
+  const links = [
+    { label: 'Portfolio（kinjo.me）', href: 'https://www.kinjo.me/' },
+    { label: 'About', href: 'https://www.kinjo.me/about' },
+    { label: 'Work', href: 'https://www.kinjo.me/work' },
+    { label: 'Products', href: 'https://www.kinjo.me/products' },
+    { label: 'Blog', href: 'https://www.kinjo.me/blog' }
   ];
 
   const renderSkillLevel = (level: number) => {
     return (
-      <div className="flex gap-1">
+      <div className="flex gap-1" aria-label={`熟練度 ${level}/5`}>
         {[1, 2, 3, 4, 5].map((i) => (
           <div
             key={i}
-            className={`w-2 h-2 rounded-full ${
-              i <= level ? 'bg-gray-900' : 'bg-gray-300'
-            }`}
+            className={`w-2 h-2 rounded-full ${i <= level ? 'bg-gray-900' : 'bg-gray-300'}`}
           />
         ))}
       </div>
@@ -127,38 +215,18 @@ export default function CareerDetail({ onBack }: CareerDetailProps) {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="border-b border-gray-200 bg-white sticky top-0 z-10">
-        <div className="container mx-auto px-6 py-5 max-w-5xl">
-          <button
-            onClick={onBack}
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            トップに戻る
-          </button>
-        </div>
-      </header>
-
-      {/* Page Title */}
-      <section className="py-16 border-b border-gray-200">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <h1 className="text-gray-900 mb-4">経歴詳細</h1>
-          <p className="text-gray-600">
-            これまでの職務経験、プロジェクト実績、保有スキルの詳細をご紹介します
-          </p>
-        </div>
-      </section>
+      <Header />
 
       {/* Career Timeline */}
       <section className="py-20">
         <div className="container mx-auto px-6 max-w-5xl">
-          <h2 className="mb-12 text-gray-900">職務経歴</h2>
-          
+          <h2 className="mb-12 text-gray-900">職務経歴（Timeline）</h2>
+
           <div className="space-y-16">
             {experiences.map((exp, index) => (
               <div key={index} className="relative pl-8 border-l-2 border-gray-200">
-                <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-gray-900"></div>
-                
+                <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-gray-900" />
+
                 <div className="mb-6">
                   <p className="text-gray-500 mb-2">{exp.period}</p>
                   <h3 className="text-gray-900 mb-1">{exp.company}</h3>
@@ -166,20 +234,21 @@ export default function CareerDetail({ onBack }: CareerDetailProps) {
                   <p className="text-gray-700 leading-relaxed">{exp.description}</p>
                 </div>
 
-                {exp.projects && (
+                {/* 主なプロジェクト */}
+                {(exp).projects && (
                   <div className="space-y-8 mt-8">
                     <h4 className="text-gray-900">主なプロジェクト</h4>
-                    {exp.projects.map((project, pIndex) => (
-                      <div key={pIndex} className="bg-gray-50 p-6">
-                        <div className="flex justify-between items-start mb-3">
+                    {(exp).projects.map((project, pIndex: number) => (
+                      <div key={pIndex} className="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2">
                           <h5 className="text-gray-900">{project.title}</h5>
-                          <span className="text-gray-500 text-sm whitespace-nowrap ml-4">{project.duration}</span>
+                          <span className="text-gray-500 text-sm whitespace-nowrap sm:ml-4">{project.duration}</span>
                         </div>
                         <p className="text-gray-600 mb-2">{project.client} / {project.role}</p>
                         <p className="text-gray-700 leading-relaxed mb-4">{project.description}</p>
                         <div className="flex flex-wrap gap-2">
-                          {project.tech.map((tech, tIndex) => (
-                            <span key={tIndex} className="px-3 py-1 bg-white border border-gray-300 text-gray-700 text-sm">
+                          {project.tech.map((tech: string, tIndex: number) => (
+                            <span key={tIndex} className="px-3 py-1 bg-white border border-gray-300 text-gray-700 text-sm rounded-full">
                               {tech}
                             </span>
                           ))}
@@ -188,29 +257,34 @@ export default function CareerDetail({ onBack }: CareerDetailProps) {
                     ))}
                   </div>
                 )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-                {exp.achievements && (
-                  <div className="mt-8">
-                    <h4 className="text-gray-900 mb-4">主な実績</h4>
-                    <ul className="space-y-2">
-                      {exp.achievements.map((achievement, aIndex) => (
-                        <li key={aIndex} className="text-gray-700 pl-4 relative before:content-['•'] before:absolute before:left-0">
-                          {achievement}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="mt-6">
-                      <p className="text-gray-600 mb-2">使用技術</p>
-                      <div className="flex flex-wrap gap-2">
-                        {exp.tech?.map((tech, tIndex) => (
-                          <span key={tIndex} className="px-3 py-1 bg-gray-100 text-gray-700 text-sm">
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                )}
+      {/* Personal Products */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <h2 className="mb-12 text-gray-900">個人プロダクト</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {personalProjects.map((p, i) => (
+              <div key={i} className="p-6 bg-white border border-gray-200 rounded-2xl">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-gray-900">{p.title}</h3>
+                  {p.link && (
+                    <Link href={p.link} target="_blank" className="text-gray-500 hover:text-gray-900" aria-label={`${p.title} を開く`}>
+                      <ExternalLink className="h-4 w-4" />
+                    </Link>
+                  )}
+                </div>
+                <p className="text-gray-500 text-sm mb-3">{p.year}</p>
+                <p className="text-gray-700 leading-relaxed mb-4">{p.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {p.tech.map((t, j) => (
+                    <span key={j} className="px-3 py-1 bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-full">{t}</span>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
@@ -218,10 +292,10 @@ export default function CareerDetail({ onBack }: CareerDetailProps) {
       </section>
 
       {/* Skills */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20">
         <div className="container mx-auto px-6 max-w-5xl">
-          <h2 className="mb-12 text-gray-900">スキルセット</h2>
-          
+          <h2 className="mb-12 text-gray-900">技術要素マップ（Skill Map）</h2>
+
           <div className="grid md:grid-cols-2 gap-12">
             <div>
               <h3 className="text-gray-900 mb-6">フロントエンド</h3>
@@ -239,7 +313,7 @@ export default function CareerDetail({ onBack }: CareerDetailProps) {
             </div>
 
             <div>
-              <h3 className="text-gray-900 mb-6">バックエンド</h3>
+              <h3 className="text-gray-900 mb-6">バックエンド / BaaS</h3>
               <div className="space-y-4">
                 {skills.backend.map((skill, index) => (
                   <div key={index}>
@@ -286,34 +360,83 @@ export default function CareerDetail({ onBack }: CareerDetailProps) {
         </div>
       </section>
 
-      {/* Certifications */}
+      {/* Awards */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <h2 className="mb-12 text-gray-900">受賞</h2>
+          <ul className="space-y-2">
+            {awards.map((a, i) => (
+              <li key={i} className="text-gray-700 pl-4 relative before:content-['•'] before:absolute before:left-0">{a}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Talks & Community */}
       <section className="py-20">
         <div className="container mx-auto px-6 max-w-5xl">
-          <h2 className="mb-12 text-gray-900">保有資格</h2>
-          
-          <div className="space-y-6">
-            {certifications.map((cert, index) => (
-              <div key={index} className="border-b border-gray-200 pb-6">
-                <h3 className="text-gray-900 mb-2">{cert.name}</h3>
-                <p className="text-gray-600">{cert.organization}</p>
-                <p className="text-gray-500">{cert.year}取得</p>
+          <h2 className="mb-12 text-gray-900">登壇・コミュニティ</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {talks.map((t, i) => (
+              <div key={i} className="p-6 bg-white border border-gray-200 rounded-2xl">
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="text-gray-900">{t.title}</h3>
+                  {t.link && (
+                    <Link href={t.link} target="_blank" className="text-gray-500 hover:text-gray-900" aria-label={`${t.title} を開く`}>
+                      <ExternalLink className="h-4 w-4" />
+                    </Link>
+                  )}
+                </div>
+                <p className="text-gray-600">{t.host}</p>
+                <p className="text-gray-500 text-sm">{t.year}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Education */}
+      {/* Writings */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6 max-w-5xl">
+          <h2 className="mb-12 text-gray-900">執筆 / ブログ</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {writings.map((w, i) => (
+              <Link key={i} href={w.link} target="_blank" className="p-6 bg-white border border-gray-200 rounded-2xl hover:shadow">
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-900">{w.title}</span>
+                  <ExternalLink className="h-4 w-4 text-gray-500" />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Education */}
+      <section className="py-20">
+        <div className="container mx-auto px-6 max-w-5xl">
           <h2 className="mb-12 text-gray-900">学歴</h2>
-          
           <div className="space-y-6">
             <div>
-              <p className="text-gray-500 mb-2">2011年4月 - 2015年3月</p>
-              <h3 className="text-gray-900 mb-1">〇〇大学 工学部 情報工学科</h3>
-              <p className="text-gray-600">アルゴリズム、データ構造、ネットワーク、データベースなどの基礎を学習</p>
+              <p className="text-gray-500 mb-2">2021年4月 - 2025年3月</p>
+              <h3 className="text-gray-900 mb-1">関西大学 総合情報学部</h3>
+              <p className="text-gray-600">情報分野を中心に、Web/アプリ開発・UI/UX・データ構造/ネットワークなどを学習。個人/インターン開発を通じ実践力を強化。</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Links */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <h2 className="mb-6 text-gray-900">リンク集</h2>
+          <div className="flex flex-wrap gap-3">
+            {links.map((l, i) => (
+              <Link key={i} href={l.href} target="_blank" className="inline-flex items-center gap-1 px-3 py-1 rounded-full border border-gray-300 bg-white text-gray-700 hover:border-gray-400">
+                <ExternalLink className="h-3 w-3" />
+                <span>{l.label}</span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -321,7 +444,7 @@ export default function CareerDetail({ onBack }: CareerDetailProps) {
       {/* Footer */}
       <footer className="border-t border-gray-200 py-8">
         <div className="container mx-auto px-6 max-w-5xl">
-          <p className="text-gray-500">© 2025 Taro Yamada. All rights reserved.</p>
+          <p className="text-gray-500">© 2025 {OWNER.NAME_EN}. All rights reserved.</p>
         </div>
       </footer>
     </div>

@@ -1,3 +1,4 @@
+import { OWNER } from '@/lib/constants';
 import { ArrowLeft, Calendar, Building2, User, Code, Github, ExternalLink } from 'lucide-react';
 
 interface ProjectDetailProps {
@@ -210,7 +211,7 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
       {/* Footer */}
       <footer className="border-t border-gray-200 py-8">
         <div className="container mx-auto px-6 max-w-5xl">
-          <p className="text-gray-500">© 2025 Taro Yamada. All rights reserved.</p>
+          <p className="text-gray-500">© 2025 {OWNER.NAME_EN}. All rights reserved.</p>
         </div>
       </footer>
     </div>
