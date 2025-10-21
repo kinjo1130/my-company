@@ -102,7 +102,7 @@ export const projects: Project[] = [
     description: 'LINE/LIFF上でGoogleマップのURLを投げるだけで旅のメモを収集・整理・共有。グループ利用・タグ・検索・地図表示などを提供。',
     technologies: ['LIFF', 'Next.js', 'TypeScript', 'Firebase'],
     links: {
-      website: 'https://www.kinjo.me/products/map-memo'
+      website: 'https://use-map.vercel.app/'
     }
   },
   {
@@ -114,7 +114,7 @@ export const projects: Project[] = [
     description: 'タイポグラフィ/アニメ表現の実験を兼ねたミニサイト。ブロックエディタ導入や表現検証の題材にも。',
     technologies: ['Next.js', 'TypeScript', 'CSS'],
     links: {
-      website: 'https://www.kinjo.me/products/beautiful-words'
+      website: 'https://favarite-text-site.vercel.app/'
     }
   },
 
@@ -125,7 +125,7 @@ export const projects: Project[] = [
     type: 'client',
     company: 'Helpfeel（Gyazo チーム）',
     period: '2024年3月 - 現在',
-    role: 'フロントエンドエンジニア',
+    role: 'プロダクトエンジニア',
     employmentType: '業務委託',
     client: 'Gyazo',
     summary: 'GyazoのUI/UX改善とパフォーマンス最適化',
@@ -167,7 +167,7 @@ export const projects: Project[] = [
     type: 'client',
     company: 'Tavern',
     period: '2023年9月 - 現在',
-    role: 'フロントエンドエンジニア',
+    role: 'プロダクトエンジニア',
     employmentType: '業務委託',
     summary: '開発AIの開発と受託案件のフロントエンドの実装',
     description: '開発AIの開発と受託案件のフロントエンドの実装、運用改善を担当。',
@@ -179,7 +179,7 @@ export const projects: Project[] = [
     type: 'client',
     company: 'BuySell Technologies',
     period: '2023年7月 - 2023年8月',
-    role: 'フルスタックエンジニア',
+    role: 'プロダクトエンジニア',
     employmentType: 'インターン',
     summary: 'GoでのAPI実装とReact+Viteによる管理画面のUI作成',
     description: 'GoでのAPI実装およびReact+Viteによる管理画面のUI作成。',
@@ -229,12 +229,24 @@ export const projects: Project[] = [
     title: '自社サービス開発',
     type: 'client',
     company: 'NPO法人 Clipper',
-    period: '2021年5月 - 現在',
+    period: '2021年5月 - 2023年12月',
     role: 'フロントエンドエンジニア',
     employmentType: '業務委託',
     summary: '学習支援/地域支援系の自社開発',
     description: '学習支援/地域支援系の自社開発に継続参画。',
     technologies: ['React', 'TypeScript', 'Firebase']
+  },
+  {
+    id: 'client-10',
+    title: 'コーポレートサイトリニューアル',
+    type: 'client',
+    company: '株式会社JINEN',
+    period: '2021年3月 - 現在',
+    role: 'プロダクトエンジニア',
+    employmentType: '業務委託',
+    summary: '自社プロダクトのSaaSの開発',
+    description: '自社プロダクトのSaaSの開発に従事。',
+    technologies: ['React', 'TypeScript', 'PHP', 'Laravel', 'MySQL', 'Xserver']
   },
 
   // OSS貢献

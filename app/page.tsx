@@ -208,13 +208,6 @@ export default function App() {
                 <p className="text-gray-900 mb-1">{OWNER.NAME}</p>
                 <p className="text-gray-600 text-sm">{OWNER.TITLE}</p>
               </div>
-                <button
-                  onClick={navigateToCareer}
-                  className="inline-flex items-center gap-2 text-gray-900 hover:text-gray-600 border-b border-gray-900 hover:border-gray-600 transition-colors pb-1"
-                >
-                  代表の詳しい経歴
-                  <ArrowRight className="w-4 h-4" />
-                </button>
             </div>
 
             <div className="space-y-8">
