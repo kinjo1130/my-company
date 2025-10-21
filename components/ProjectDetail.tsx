@@ -1,54 +1,51 @@
 import { OWNER } from '@/lib/constants';
 import { ArrowLeft, Calendar, Building2, User, Code, Github, ExternalLink } from 'lucide-react';
+import Link from 'next/link';
+import Header from './Header';
 
 interface ProjectDetailProps {
   project: {
     id: string;
     title: string;
-    type: 'client' | 'oss' | 'personal';
+    type: 'client' | 'contract' | 'oss' | 'personal';
     period?: string;
     company?: string;
     role?: string;
     summary: string;
     description: string;
-    details: string[];
+    details?: string[];
     achievements?: string[];
     technologies: string[];
     teamSize?: string;
+    client?: string;
+    employmentType?: string;
+    duration?: string;
     links?: {
       github?: string;
       demo?: string;
       website?: string;
     };
   };
-  onBack: () => void;
+  onBack?: () => void;
 }
 
 export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
-  const getTypeLabel = (type: string) => {
-    switch (type) {
-      case 'client': return '業務委託';
+  const getTypeLabel = () => {
+    if (project.type === 'client') {
+      return project.employmentType || 'クライアントワーク';
+    }
+    switch (project.type) {
+      case 'contract': return '受託開発';
       case 'oss': return 'OSS貢献';
-      case 'personal': return '個人開発';
+      case 'personal': return '自社プロダクト';
       default: return '';
     }
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white mt-20">
       {/* Header */}
-      <header className="border-b border-gray-200 bg-white sticky top-0 z-10">
-        <div className="container mx-auto px-6 py-5 max-w-5xl">
-          <button
-            onClick={onBack}
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            戻る
-          </button>
-        </div>
-      </header>
-
+      <Header />
       {/* Project Header */}
       <section className="relative py-16 border-b border-gray-200 overflow-hidden">
         <div className="absolute inset-0" style={{
@@ -58,7 +55,7 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
         }}></div>
         <div className="relative container mx-auto px-6 max-w-5xl">
           <div className="mb-6">
-            <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm">{getTypeLabel(project.type)}</span>
+            <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm">{getTypeLabel()}</span>
           </div>
           <h1 className="text-gray-900 mb-4">{project.title}</h1>
           {project.company && <p className="text-gray-500 mb-4">{project.company}</p>}
@@ -71,6 +68,9 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
                 <div>
                   <p className="text-gray-500 text-sm mb-1">期間</p>
                   <p className="text-gray-900">{project.period}</p>
+                  {project.duration && (
+                    <p className="text-gray-600 text-sm mt-1">プロジェクト期間: {project.duration}</p>
+                  )}
                 </div>
               </div>
             )}
@@ -79,7 +79,19 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
                 <User className="w-5 h-5 text-gray-400 mt-0.5" />
                 <div>
                   <p className="text-gray-500 text-sm mb-1">役割</p>
-                  <p className="text-gray-900">{project.role}</p>
+                  <p className="text-gray-900">
+                    {project.role}
+                    {project.employmentType && `（${project.employmentType}）`}
+                  </p>
+                </div>
+              </div>
+            )}
+            {project.client && (
+              <div className="flex items-start gap-3">
+                <Building2 className="w-5 h-5 text-gray-400 mt-0.5" />
+                <div>
+                  <p className="text-gray-500 text-sm mb-1">クライアント</p>
+                  <p className="text-gray-900">{project.client}</p>
                 </div>
               </div>
             )}
@@ -155,19 +167,27 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
               </div>
 
               {/* Details */}
-              <div>
-                <h2 className="text-gray-900 mb-6">
-                  {project.type === 'client' ? '担当業務' : project.type === 'oss' ? '貢献内容' : '実装内容'}
-                </h2>
-                <ul className="space-y-3">
-                  {project.details.map((item, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 bg-gray-400 rounded-full mt-2 flex-shrink-0"></div>
-                      <span className="text-gray-700 leading-relaxed">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {project.details && project.details.length > 0 && (
+                <div>
+                  <h2 className="text-gray-900 mb-6">
+                    {project.type === 'client'
+                      ? '担当業務'
+                      : project.type === 'contract'
+                      ? '実装内容'
+                      : project.type === 'oss'
+                      ? '貢献内容'
+                      : '実装内容'}
+                  </h2>
+                  <ul className="space-y-3">
+                    {project.details.map((item, index) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <div className="w-1.5 h-1.5 bg-gray-400 rounded-full mt-2 flex-shrink-0"></div>
+                        <span className="text-gray-700 leading-relaxed">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               {/* Achievements */}
               {project.achievements && project.achievements.length > 0 && (

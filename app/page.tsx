@@ -2,7 +2,7 @@
 import { ExternalLink, ArrowRight, Github, Code2, Briefcase, Building2, MapPin } from 'lucide-react';
 import { ImageWithFallback } from '@/components/Fallback';
 import { useState, useEffect, Suspense } from 'react';
-import ProjectDetail from '@/components/ProjectDetail';
+import Link from 'next/link';
 import BlogList from '@/components/BlogList';
 import BlogDetail from '@/components/BlogDetail';
 import NewsList from '@/components/NewsList';
@@ -14,11 +14,10 @@ import { SITE, OWNER } from '@/lib/constants';
 import Header from '@/components/Header';
 import ContactForm from '@/components/ContactForm';
 
-type PageType = 'home' | 'project' | 'blog' | 'blogDetail' | 'news';
+type PageType = 'home' | 'blog' | 'blogDetail' | 'news';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageType>('home');
-  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [selectedBlogId, setSelectedBlogId] = useState<string | null>(null);
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [blogPromise, setBlogPromise] = useState<Promise<BlogPost> | null>(null);
@@ -29,29 +28,19 @@ export default function App() {
       const path = window.location.pathname;
 
       if (path === ROUTES.CAREER) {
-        setSelectedProjectId(null);
-        setSelectedBlogId(null);
-      } else if (path.startsWith('/project/')) {
-        const projectId = path.replace('/project/', '');
-        setCurrentPage('project');
-        setSelectedProjectId(projectId);
         setSelectedBlogId(null);
       } else if (path === ROUTES.BLOG) {
         setCurrentPage('blog');
-        setSelectedProjectId(null);
         setSelectedBlogId(null);
       } else if (path.startsWith('/blog/')) {
         const blogId = path.replace('/blog/', '');
         setCurrentPage('blogDetail');
-        setSelectedProjectId(null);
         setSelectedBlogId(blogId);
       } else if (path === ROUTES.NEWS) {
         setCurrentPage('news');
-        setSelectedProjectId(null);
         setSelectedBlogId(null);
       } else if (path === ROUTES.HOME) {
         setCurrentPage('home');
-        setSelectedProjectId(null);
         setSelectedBlogId(null);
       }
     };
@@ -85,8 +74,6 @@ export default function App() {
     }
   }, [currentPage, selectedBlogId]);
 
-  const selectedProject = projects.find(p => p.id === selectedProjectId);
-
   // ページ遷移関数（#なしで遷移）
   const navigate = (path: string) => {
     window.history.pushState(null, '', path);
@@ -101,10 +88,6 @@ export default function App() {
     navigate(ROUTES.HOME);
   };
 
-  const navigateToProject = (projectId: string) => {
-    navigate(ROUTES.PROJECT(projectId));
-  };
-
   const navigateToBlog = () => {
     navigate(ROUTES.BLOG);
   };
@@ -112,24 +95,6 @@ export default function App() {
   const navigateToBlogDetail = (blogId: string) => {
     navigate(ROUTES.BLOG_DETAIL(blogId));
   };
-
-  const navigateToNews = () => {
-    navigate(ROUTES.NEWS);
-  };
-
-  // セクションへのスムーズスクロール（#なし）
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // URLから#を除去
-      window.history.pushState(null, '', window.location.pathname);
-    }
-  };
-
-  if (currentPage === 'project' && selectedProject) {
-    return <ProjectDetail project={selectedProject} onBack={navigateToHome} />;
-  }
 
   if (currentPage === 'blog') {
     return <BlogList posts={blogPosts} onSelectBlog={navigateToBlogDetail} onBack={navigateToHome} />;
@@ -149,7 +114,24 @@ export default function App() {
     return <NewsList onBack={navigateToHome} />;
   }
 
-  const clientProjects = projects.filter(p => p.type === 'client');
+  const contractProjects = projects.filter(p => p.type === 'contract');
+  const clientProjects = projects.filter(p => p.type === 'client').sort((a, b) => {
+    // 「現在」継続中のプロジェクトを優先
+    const aIsCurrent = a.period?.includes('現在') ?? false;
+    const bIsCurrent = b.period?.includes('現在') ?? false;
+
+    if (aIsCurrent && !bIsCurrent) return -1;
+    if (!aIsCurrent && bIsCurrent) return 1;
+
+    // 両方とも現在、または両方とも過去の場合は開始年月で比較
+    const getStartDate = (period?: string) => {
+      if (!period) return 0;
+      const match = period.match(/(\d{4})年(\d{1,2})月/);
+      if (!match) return 0;
+      return parseInt(match[1]) * 100 + parseInt(match[2]);
+    };
+    return getStartDate(b.period) - getStartDate(a.period);
+  });
   const ossProjects = projects.filter(p => p.type === 'oss');
   const personalProjects = projects.filter(p => p.type === 'personal');
 
@@ -315,36 +297,16 @@ export default function App() {
           <div className="space-y-16">
             <div className="grid md:grid-cols-3 gap-8">
               <div className="md:col-span-1">
-                <h3 className="text-gray-900 mb-2">Webアプリケーション開発</h3>
-                <p className="text-gray-500">Web Development</p>
+                <h3 className="text-gray-900 mb-2">アプリケーション開発</h3>
+                <p className="text-gray-500">App Development</p>
               </div>
               <div className="md:col-span-2">
                 <p className="text-gray-700 leading-relaxed mb-4">
-                  React / Next.jsを中心としたモダンなフロントエンド開発から、
-                  Node.js / Pythonを用いたバックエンド開発まで対応します。
+                  お客様のニーズに合わせたWebアプリケーション、モバイルアプリ、業務システムを開発します。
                   要件定義の段階から参画し、技術選定・設計・実装を一貫してサポートします。
                 </p>
                 <p className="text-gray-600">
-                  実績：ECサイト、予約システム、社内管理ツール、マッチングプラットフォーム など
-                </p>
-              </div>
-            </div>
-
-            <div className="h-px bg-gray-200"></div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="md:col-span-1">
-                <h3 className="text-gray-900 mb-2">スマートフォンアプリ開発</h3>
-                <p className="text-gray-500">Mobile App Development</p>
-              </div>
-              <div className="md:col-span-2">
-                <p className="text-gray-700 leading-relaxed mb-4">
-                  iOS/Androidのネイティブアプリケーション開発を行います。
-                  Swift/Kotlin、React Nativeなど、プロジェクトの要件に最適な技術を選定し、
-                  高品質なモバイルアプリケーションを提供します。
-                </p>
-                <p className="text-gray-600">
-                  実績：業務支援アプリ、ヘルスケアアプリ、コミュニケーションアプリ など
+                  実績：イベント登壇の長時間動画のクローズドでの配信システム、など
                 </p>
               </div>
             </div>
@@ -363,7 +325,7 @@ export default function App() {
                   コードレビューやアーキテクチャ設計の相談も承ります。
                 </p>
                 <p className="text-gray-600">
-                  実績：レガシーシステムのReact化、API設計見直し、パフォーマンスチューニング など
+                  実績：静的なサイトからNext.jsへのリプレイス、Reactのversionアップ、API設計見直し、など
                 </p>
               </div>
             </div>
@@ -382,7 +344,7 @@ export default function App() {
                   AIチャットボットやアシスタント機能の実装に対応。業務効率化やユーザー体験向上に貢献します。
                 </p>
                 <p className="text-gray-600">
-                  実績：AIチャットボット開発、文書検索システム（RAG）、画像生成機能統合、業務自動化ツール など
+                  実績：AIチャットボット開発、文書検索システム（RAG）、業務自動化ツール など
                 </p>
               </div>
             </div>
@@ -397,37 +359,114 @@ export default function App() {
                            linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px)`,
           backgroundSize: '64px 64px'
         }}></div>
-        <div className="relative container mx-auto px-6 max-w-6xl">
+        <div className="relative container mx-auto px-6 max-w-5xl">
           <h2 className="mb-12 text-gray-900 text-2xl">実績</h2>
+
+          {/* Contract Work */}
+          <div className="mb-20">
+            <div className="flex items-center gap-3 mb-8">
+              <Code2 className="w-6 h-6 text-gray-600" />
+              <h3 className="text-gray-900">受託開発</h3>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6">
+              {contractProjects.map((project) => (
+                <Link
+                  key={project.id}
+                  href={`/project/${project.id}`}
+                  className="bg-white p-6 border-2 border-gray-200 rounded-xl hover:border-blue-400 hover:shadow-lg hover:-translate-y-1 transition-all block group"
+                >
+                  <div className="flex items-start justify-between mb-2">
+                    <h4 className="text-gray-900 group-hover:text-blue-600 transition-colors font-medium flex-1">
+                      {project.title}
+                    </h4>
+                  </div>
+                  {project.period && (
+                    <p className="text-gray-500 text-sm mb-3">{project.period}</p>
+                  )}
+                  <p className="text-gray-700 leading-relaxed mb-4">{project.summary}</p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.technologies.slice(0, 4).map((tech, i) => (
+                      <span key={i} className="px-3 py-1 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-full">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex items-center gap-2 text-blue-600 text-sm font-medium">
+                    詳細を見る
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
 
           {/* Client Work */}
           <div className="mb-20">
             <div className="flex items-center gap-3 mb-8">
               <Briefcase className="w-6 h-6 text-gray-600" />
-              <h3 className="text-gray-900">受託開発</h3>
+              <h3 className="text-gray-900">クライアントワーク</h3>
             </div>
-            <div className="grid md:grid-cols-3 gap-6">
+
+            {/* デスクトップ: 表形式 */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full border-collapse bg-white">
+                <thead>
+                  <tr className="bg-gray-100">
+                    <th className="text-left py-3 px-4 text-gray-900 font-medium border-b border-gray-300">Date</th>
+                    <th className="text-left py-3 px-4 text-gray-900 font-medium border-b border-gray-300">Company</th>
+                    <th className="text-left py-3 px-4 text-gray-900 font-medium border-b border-gray-300">Job</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {clientProjects.map((project) => (
+                    <tr
+                      key={project.id}
+                      onClick={() => window.location.href = `/project/${project.id}`}
+                      className="border-b border-gray-200 hover:bg-gray-100 transition-all cursor-pointer group"
+                    >
+                      <td className="py-4 px-4 text-gray-700 align-top">{project.period}</td>
+                      <td className="py-4 px-4 align-top">
+                        <span className="text-blue-600 underline decoration-1 underline-offset-2">
+                          {project.company}
+                        </span>
+                      </td>
+                      <td className="py-4 px-4 align-top">
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex-1">
+                            <div className="text-gray-900 mb-1">
+                              {project.role}
+                              {project.employmentType && `（${project.employmentType}）`}
+                            </div>
+                            <div className="text-gray-600 text-sm leading-relaxed">{project.summary}</div>
+                          </div>
+                          <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-gray-900 group-hover:translate-x-1 transition-all flex-shrink-0 mt-1" />
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* モバイル: カード形式 */}
+            <div className="md:hidden space-y-4">
               {clientProjects.map((project) => (
-                <button
+                <Link
                   key={project.id}
-                  onClick={() => navigateToProject(project.id)}
-                  className="bg-white p-6 border border-gray-200 hover:border-gray-400 transition-all text-left group"
+                  href={`/project/${project.id}`}
+                  className="bg-white p-4 border-2 border-gray-200 rounded-lg hover:border-gray-400 hover:shadow-md hover:-translate-y-0.5 transition-all block group"
                 >
-                  <div className="mb-4">
-                    <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs">受託開発</span>
-                  </div>
-                  <h4 className="text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">{project.title}</h4>
-                  <p className="text-gray-600 text-sm mb-4">{project.summary}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.slice(0, 3).map((tech, i) => (
-                      <span key={i} className="text-xs text-gray-500">{tech}</span>
-                    ))}
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-900 text-sm">
-                    詳細を見る
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </button>
+                  <p className="text-gray-500 text-sm mb-2">{project.period}</p>
+                  <h4 className="text-gray-900 mb-2 flex items-center justify-between">
+                    <span>{project.company}</span>
+                    <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-gray-900 group-hover:translate-x-1 transition-all" />
+                  </h4>
+                  <p className="text-gray-700 mb-2">
+                    {project.role}
+                    {project.employmentType && `（${project.employmentType}）`}
+                  </p>
+                  <p className="text-gray-600 text-sm">{project.summary}</p>
+                </Link>
               ))}
             </div>
           </div>
@@ -440,21 +479,30 @@ export default function App() {
             </div>
             <div className="grid md:grid-cols-2 gap-6">
               {ossProjects.map((project) => (
-                <button
+                <Link
                   key={project.id}
-                  onClick={() => navigateToProject(project.id)}
-                  className="bg-white p-6 border border-gray-200 hover:border-gray-400 transition-all text-left group"
+                  href={`/project/${project.id}`}
+                  className="bg-white p-6 border-2 border-gray-200 rounded-xl hover:border-blue-400 hover:shadow-lg hover:-translate-y-1 transition-all block group"
                 >
-                  <div className="mb-4">
-                    <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs">OSS</span>
+                  <h4 className="text-gray-900 mb-2 group-hover:text-blue-600 transition-colors font-medium">
+                    {project.title}
+                  </h4>
+                  {project.period && (
+                    <p className="text-gray-500 text-sm mb-3">{project.period}</p>
+                  )}
+                  <p className="text-gray-700 leading-relaxed mb-4">{project.summary}</p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.technologies.map((tech, i) => (
+                      <span key={i} className="px-3 py-1 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-full">
+                        {tech}
+                      </span>
+                    ))}
                   </div>
-                  <h4 className="text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">{project.title}</h4>
-                  <p className="text-gray-600 text-sm mb-4">{project.summary}</p>
-                  <div className="flex items-center gap-2 text-gray-900 text-sm">
+                  <div className="flex items-center gap-2 text-blue-600 text-sm font-medium">
                     詳細を見る
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
                   </div>
-                </button>
+                </Link>
               ))}
             </div>
           </div>
@@ -467,26 +515,30 @@ export default function App() {
             </div>
             <div className="grid md:grid-cols-2 gap-6">
               {personalProjects.map((project) => (
-                <button
+                <Link
                   key={project.id}
-                  onClick={() => navigateToProject(project.id)}
-                  className="bg-white p-6 border border-gray-200 hover:border-gray-400 transition-all text-left group"
+                  href={`/project/${project.id}`}
+                  className="bg-white p-6 border-2 border-gray-200 rounded-xl hover:border-blue-400 hover:shadow-lg hover:-translate-y-1 transition-all block group"
                 >
-                  <div className="mb-4">
-                    <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs">自社プロダクト</span>
-                  </div>
-                  <h4 className="text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">{project.title}</h4>
-                  <p className="text-gray-600 text-sm mb-4">{project.summary}</p>
+                  <h4 className="text-gray-900 mb-2 group-hover:text-blue-600 transition-colors font-medium">
+                    {project.title}
+                  </h4>
+                  {project.period && (
+                    <p className="text-gray-500 text-sm mb-3">{project.period}</p>
+                  )}
+                  <p className="text-gray-700 leading-relaxed mb-4">{project.summary}</p>
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.slice(0, 3).map((tech, i) => (
-                      <span key={i} className="text-xs text-gray-500">{tech}</span>
+                    {project.technologies.map((tech, i) => (
+                      <span key={i} className="px-3 py-1 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-full">
+                        {tech}
+                      </span>
                     ))}
                   </div>
-                  <div className="flex items-center gap-2 text-gray-900 text-sm">
+                  <div className="flex items-center gap-2 text-blue-600 text-sm font-medium">
                     詳細を見る
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
                   </div>
-                </button>
+                </Link>
               ))}
             </div>
           </div>

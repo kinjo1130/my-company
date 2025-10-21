@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 
 const contentDirectory = path.join(process.cwd(), 'content/blog');
+const projectsDirectory = path.join(process.cwd(), 'content/projects');
 
 export interface BlogPost {
   slug: string;
@@ -67,4 +68,46 @@ export async function getAllBlogSlugs(): Promise<string[]> {
   return files
     .filter((file) => file.endsWith('.mdx'))
     .map((file) => file.replace(/\.mdx$/, ''));
+}
+
+// Project MDX functions
+export interface ProjectMDX {
+  id: string;
+  title: string;
+  period?: string;
+  company?: string;
+  role?: string;
+  summary: string;
+  technologies: string[];
+  content: string;
+}
+
+export async function getProjectMDX(id: string): Promise<ProjectMDX | null> {
+  try {
+    const fullPath = path.join(projectsDirectory, `${id}.mdx`);
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const { data, content } = matter(fileContents);
+
+    return {
+      id,
+      title: data.title,
+      period: data.period,
+      company: data.company,
+      role: data.role,
+      summary: data.summary,
+      technologies: data.technologies || [],
+      content,
+    };
+  } catch (error) {
+    return null;
+  }
+}
+
+export async function hasProjectMDX(id: string): Promise<boolean> {
+  try {
+    const fullPath = path.join(projectsDirectory, `${id}.mdx`);
+    return fs.existsSync(fullPath);
+  } catch (error) {
+    return false;
+  }
 }

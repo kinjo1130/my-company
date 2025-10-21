@@ -1,4 +1,4 @@
-export type ProjectType = 'client' | 'oss' | 'personal';
+export type ProjectType = 'client' | 'contract' | 'oss' | 'personal';
 
 export interface Project {
   id: string;
@@ -9,10 +9,13 @@ export interface Project {
   role?: string;
   summary: string;
   description: string;
-  details: string[];
-  achievements: string[];
+  details?: string[];
+  achievements?: string[];
   technologies: string[];
   teamSize?: string;
+  client?: string; // プロジェクトのクライアント名
+  employmentType?: string; // "業務委託" | "インターン" | "受託開発"
+  duration?: string; // プロジェクト単体の期間
   links?: {
     github?: string;
     demo?: string;
@@ -21,195 +24,230 @@ export interface Project {
 }
 
 export const projects: Project[] = [
-  // 業務委託
+  // 受託開発
   {
-    id: 'client-1',
-    title: 'ECサイトリニューアル',
-    type: 'client',
-    company: 'アパレルブランドA社',
-    period: '2024年7月 - 2024年12月（5ヶ月）',
-    role: 'フロントエンドリード',
-    summary: 'Next.js + Headless CMSでのECサイト全面リニューアル',
-    description: `老朽化したECサイトを Next.js + Shopify Storefront API で全面リニューアル。ヘッドレスコマースアーキテクチャを採用し、マーケティング施策の柔軟性を向上させました。
-
-パフォーマンス最適化に注力し、画像の最適化、コード分割、SSG/ISRの適切な使い分けにより、ページ速度を40%改善。SEO対策も実施し、自然検索流入が25%増加しました。`,
-    details: [
-      'Next.jsによるフロントエンド開発全般',
-      'Shopify Storefront APIとの連携実装',
-      'パフォーマンス最適化（画像最適化、コード分割、SSG/ISR）',
-      'SEO対策の実施',
-      'レスポンシブデザインの実装',
-      'コードレビュー・品質管理'
-    ],
-    achievements: [
-      'ページ表示速度を40%改善（Lighthouse スコア 95点達成）',
-      '自然検索流入を25%増加',
-      'コンバージョン率を15%向上',
-      '予定より2週間早くリリース完了'
-    ],
-    technologies: ['Next.js', 'TypeScript', 'Shopify API', 'Tailwind CSS', 'Vercel'],
-    teamSize: '4名（PM1名、デザイナー1名、エンジニア2名）'
-  },
-  {
-    id: 'client-2',
-    title: '予約管理SaaS MVP開発',
-    type: 'client',
-    company: '美容室向けSaaSスタートアップB社',
-    period: '2023年4月 - 現在（継続中）',
-    role: 'フルスタックエンジニア',
-    summary: '美容室向け予約管理システムのゼロからの構築',
-    description: `美容室向けの予約管理システムをゼロから構築。MVPフェーズから参画し、予約カレンダー機能、顧客管理、決済機能を実装しました。
-
-Supabaseを活用することでバックエンド開発を効率化し、3ヶ月でローンチを実現。リリース後も継続的に機能追加や改善を行っています。`,
+    id: 'contract-1',
+    title: 'イベント登壇動画配信システム',
+    type: 'contract',
+    period: '2024年1月 - 2024年3月',
+    role: 'フロントエンドエンジニア',
+    summary: '長時間動画のクローズド配信システムの開発',
+    description: 'イベント登壇の長時間動画をクローズド環境で配信するシステムを開発。視聴者の認証、動画プレイヤーのカスタマイズ、視聴ログの記録などを実装。',
     details: [
       'Next.jsによるフロントエンド開発',
-      'Supabaseを用いたバックエンド設計・実装',
-      'Stripe決済機能の実装',
-      '予約カレンダーUIの実装',
-      'リアルタイム通知機能の実装',
-      '運用保守・機能追加対応'
+      '認証機能の実装（メール認証）',
+      'カスタム動画プレイヤーの実装',
+      '視聴ログ記録機能の実装',
+      'レスポンシブデザイン対応'
     ],
     achievements: [
-      'MVPを3ヶ月でローンチ',
-      '導入店舗数50店舗を突破',
-      '予約完了率が従来の電話予約比で30%向上',
-      'ユーザー満足度4.5/5.0を達成'
+      '安定した動画配信を実現',
+      '視聴者満足度が高い評価を獲得',
+      '予定通りのスケジュールで納品'
     ],
-    technologies: ['Next.js', 'TypeScript', 'Supabase', 'Stripe', 'React Query'],
-    teamSize: '3名（創業者1名、デザイナー1名、エンジニア1名）'
+    technologies: ['Next.js', 'TypeScript', 'Vercel', 'Video.js']
   },
   {
-    id: 'client-3',
-    title: '社内業務システム開発',
-    type: 'client',
-    company: '製造業C社',
-    period: '2022年6月 - 2022年12月（6ヶ月）',
-    role: 'フルスタックエンジニア',
-    summary: 'Excel管理からWebシステムへの移行',
-    description: `Excel管理していた在庫・発注業務をWebシステム化するプロジェクト。要件定義から設計、実装、導入研修まで一貫して担当しました。
-
-バーコードスキャナー連携や帳票出力機能も実装し、現場の業務フローに合わせた使いやすいシステムを構築。導入後、業務効率が30%改善されました。`,
+    id: 'contract-2',
+    title: 'コーポレートサイトリニューアル',
+    type: 'contract',
+    period: '2023年9月 - 2023年12月',
+    role: 'フロントエンドエンジニア',
+    summary: '静的サイトからNext.jsへのリプレイス',
+    description: '老朽化した静的HTMLサイトをNext.jsでリニューアル。モダンなUIデザイン、SEO最適化、管理画面の構築を実施。',
     details: [
-      '要件定義・ヒアリング',
-      'システム設計（DB設計、API設計）',
-      'React + Node.jsによる開発',
-      'バーコードスキャナー連携実装',
-      'PDF帳票出力機能の実装',
-      '導入研修・マニュアル作成'
+      '静的サイトからNext.jsへの移行',
+      'ヘッドレスCMSの導入（Contentful）',
+      'SEO対策の実施',
+      'パフォーマンス最適化',
+      '問い合わせフォームの実装'
     ],
     achievements: [
-      '業務効率を30%改善',
-      '在庫管理ミスをゼロに削減',
-      '発注業務の所要時間を50%短縮',
-      'ユーザー研修を実施し、スムーズな導入を実現'
+      'ページ表示速度を60%改善',
+      'SEOスコアが大幅に向上',
+      'コンテンツ更新の工数を70%削減'
     ],
-    technologies: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Docker'],
-    teamSize: '1名（単独開発）'
-  },
-  // OSS貢献
-  {
-    id: 'oss-1',
-    title: 'React Hook Form',
-    type: 'oss',
-    summary: 'TypeScript型定義の改善とバグ修正',
-    description: `人気のフォーム管理ライブラリReact Hook Formへの貢献。TypeScriptの型定義の改善と、ネストされたフォームフィールドに関するバグ修正を実施しました。
-
-特に複雑なフォームバリデーションでの型安全性が向上し、開発者体験の改善に貢献しました。`,
-    details: [
-      'TypeScript型定義の改善（ネストされたフィールド対応）',
-      'useFieldArrayのバグ修正',
-      'ドキュメントの更新・翻訳',
-      'Issue対応とコードレビュー参加'
-    ],
-    achievements: [
-      'マージされたPR: 5件',
-      'Star数: 40,000+のプロジェクトへの貢献',
-      'TypeScript型安全性の向上'
-    ],
-    technologies: ['TypeScript', 'React', 'Jest'],
-    links: {
-      github: 'https://github.com/react-hook-form/react-hook-form'
-    }
+    technologies: ['Next.js', 'TypeScript', 'Contentful', 'Tailwind CSS', 'Vercel']
   },
   {
-    id: 'oss-2',
-    title: 'Tailwind CSS',
-    type: 'oss',
-    summary: '日本語ドキュメントの翻訳とプラグイン開発',
-    description: `Tailwind CSSの日本語ドキュメント翻訳プロジェクトに参加。また、独自のユーティリティを追加するプラグインも開発・公開しました。
-
-翻訳では技術用語の統一や読みやすさに配慮し、日本のコミュニティへの貢献を実現しました。`,
+    id: 'contract-3',
+    title: 'Reactアプリケーション保守・改善',
+    type: 'contract',
+    period: '2023年5月 - 2023年8月',
+    role: 'フロントエンドエンジニア',
+    summary: 'Reactのバージョンアップとパフォーマンス改善',
+    description: '既存のReactアプリケーションのバージョンアップ、パフォーマンス改善、API設計の見直しを実施。',
     details: [
-      '公式ドキュメントの日本語翻訳（30ページ以上）',
-      'カスタムプラグインの開発・公開',
-      '翻訳レビューとメンテナンス',
-      'コミュニティでの質問対応'
+      'React v16からv18へのアップグレード',
+      'パフォーマンスボトルネックの特定と改善',
+      'API設計の見直しと最適化',
+      'コンポーネントのリファクタリング',
+      'テストコードの追加'
     ],
     achievements: [
-      '翻訳ページ閲覧数: 月間10,000PV以上',
-      'カスタムプラグインのダウンロード数: 1,000+',
-      '日本語コミュニティの活性化に貢献'
+      'レンダリング速度を40%改善',
+      'バンドルサイズを25%削減',
+      'API呼び出し回数を50%削減'
     ],
-    technologies: ['CSS', 'PostCSS', 'JavaScript'],
-    links: {
-      github: 'https://github.com/tailwindlabs/tailwindcss'
-    }
+    technologies: ['React', 'TypeScript', 'React Query', 'Vite']
   },
-  // 個人開発
+
+  // 個人プロダクト
   {
     id: 'personal-1',
-    title: 'TaskFlow',
+    title: 'MapMemo',
     type: 'personal',
-    summary: 'シンプルなタスク管理アプリ',
-    description: `自社プロダクトとして、シンプルで使いやすいタスク管理アプリを開発。既存のタスク管理ツールが複雑すぎると感じ、最小限の機能で使いやすいものを目指しました。
-
-リアルタイム同期、オフライン対応、ドラッグ&ドロップなど、使い勝手にこだわって実装。100名以上のユーザーに利用されています。`,
-    details: [
-      'Next.js + Supabaseによるフルスタック開発',
-      'リアルタイム同期機能の実装',
-      'PWA対応（オフライン機能）',
-      'ドラッグ&ドロップによる直感的な操作',
-      'ダークモード対応',
-      'モバイルファーストデザイン'
-    ],
-    achievements: [
-      'ユーザー数: 100+',
-      'Product Hunt掲載',
-      '平均評価: 4.7/5.0',
-      '技術ブログで紹介され1万PV達成'
-    ],
-    technologies: ['Next.js', 'TypeScript', 'Supabase', 'Tailwind CSS', 'PWA'],
+    period: '2025年4月',
+    summary: 'LINE/LIFF上で旅のメモを管理',
+    description: 'LINE/LIFF上でGoogleマップのURLを投げるだけで旅のメモを収集・整理・共有。グループ利用・タグ・検索・地図表示などを提供。',
+    technologies: ['LIFF', 'Next.js', 'TypeScript', 'Firebase'],
     links: {
-      github: 'https://github.com/taroy/taskflow',
-      demo: 'https://taskflow-demo.vercel.app'
+      website: 'https://www.kinjo.me/products/map-memo'
     }
   },
   {
     id: 'personal-2',
-    title: 'DevResources',
+    title: '美しい言葉をまとめたサイト',
     type: 'personal',
-    summary: '開発者向けリソース共有プラットフォーム',
-    description: `開発者が役立つリソース（記事、ツール、ライブラリなど）を共有・発見できるプラットフォーム。技術カテゴリーごとに整理され、検索やタグ付けも可能です。
-
-コミュニティ機能も実装し、ユーザー同士でおすすめのリソースを共有できる場を提供しています。`,
-    details: [
-      'Next.js + PostgreSQLによる開発',
-      '全文検索機能の実装',
-      'ユーザー認証・プロフィール機能',
-      'いいね・ブックマーク機能',
-      'タグベースの分類システム',
-      'レスポンシブデザイン'
-    ],
-    achievements: [
-      '登録リソース数: 500+',
-      'ユーザー数: 200+',
-      '月間アクティブユーザー: 50+',
-      'GitHub Stars: 120+'
-    ],
-    technologies: ['Next.js', 'TypeScript', 'PostgreSQL', 'Prisma', 'NextAuth.js'],
+    period: '2024年4月',
+    summary: 'タイポグラフィ/アニメ表現の実験サイト',
+    description: 'タイポグラフィ/アニメ表現の実験を兼ねたミニサイト。ブロックエディタ導入や表現検証の題材にも。',
+    technologies: ['Next.js', 'TypeScript', 'CSS'],
     links: {
-      github: 'https://github.com/taroyamada/devresources',
-      website: 'https://devresources.io'
+      website: 'https://www.kinjo.me/products/beautiful-words'
+    }
+  },
+
+  // クライアントワーク（業務委託・インターン）
+  {
+    id: 'client-1',
+    title: '既存機能の改善・UI最適化',
+    type: 'client',
+    company: 'Helpfeel（Gyazo チーム）',
+    period: '2024年3月 - 現在',
+    role: 'フロントエンドエンジニア',
+    employmentType: '業務委託',
+    client: 'Gyazo',
+    summary: 'GyazoのUI/UX改善とパフォーマンス最適化',
+    description: 'UI/UX課題の抽出と修正、アクセシビリティ/描画最適化、ViewTransition API/アニメーションの検証などを通じて体験を磨き込み。',
+    duration: '継続中',
+    technologies: ['React', 'Next.js', 'TypeScript']
+  },
+  {
+    id: 'client-2',
+    title: 'プロダクトのアニメーションを追加することでのUX体験の強化',
+    type: 'client',
+    company: 'サイバーエージェント',
+    period: '2023年10月 - 2023年11月',
+    role: 'フロントエンドエンジニア',
+    employmentType: 'インターン',
+    client: '社内プロジェクト',
+    summary: 'ViewTransition APIを活用したインタラクション実装',
+    description: 'パフォーマンスと視覚効果の両立を意識して実装を最適化。',
+    duration: '1ヶ月',
+    technologies: ['React', 'TypeScript', 'ViewTransition API']
+  },
+  {
+    id: 'client-3',
+    title: '既存機能の改修',
+    type: 'client',
+    company: 'BEENOS',
+    period: '2023年10月',
+    role: 'フロントエンドエンジニア',
+    employmentType: 'インターン',
+    client: '社内サービス',
+    summary: 'Nuxt2のコードリーディングと改修',
+    description: 'Nuxt2のコードリーディングと改修、PHP連携の動作検証。',
+    duration: '2週間',
+    technologies: ['Nuxt2', 'PHP']
+  },
+  {
+    id: 'client-4',
+    title: '自社プロダクトと受託案件の実装',
+    type: 'client',
+    company: 'Tavern',
+    period: '2023年9月 - 現在',
+    role: 'フロントエンドエンジニア',
+    employmentType: '業務委託',
+    summary: '開発AIの開発と受託案件のフロントエンドの実装',
+    description: '開発AIの開発と受託案件のフロントエンドの実装、運用改善を担当。',
+    technologies: ['React', 'TypeScript', 'Next.js','DDD']
+  },
+  {
+    id: 'client-5',
+    title: 'API実装と管理UI開発',
+    type: 'client',
+    company: 'BuySell Technologies',
+    period: '2023年7月 - 2023年8月',
+    role: 'フルスタックエンジニア',
+    employmentType: 'インターン',
+    summary: 'GoでのAPI実装とReact+Viteによる管理画面のUI作成',
+    description: 'GoでのAPI実装およびReact+Viteによる管理画面のUI作成。',
+    duration: '2ヶ月',
+    technologies: ['Go', 'React', 'Vite', 'TypeScript']
+  },
+  {
+    id: 'client-6',
+    title: '自社/受託プロダクト群',
+    type: 'client',
+    company: '株式会社 ohmygod',
+    period: '2023年1月 - 現在',
+    role: 'プロダクトエンジニア',
+    employmentType: '業務委託',
+    client: '自社/クライアント',
+    summary: 'Firebase + Nuxt3/Next.jsによる自社/受託開発',
+    description: '受託案件の開発や自社プロダクトの「ザ・スタンプラリー」「ザ・クーポン」などのBtoCプロダクトを担当。',
+    duration: '継続中',
+    technologies: ['Nuxt3', 'Vue', 'Firebase', 'TypeScript','Mapbox']
+  },
+  {
+    id: 'client-7',
+    title: 'Quden開発',
+    type: 'client',
+    company: 'Zipunk',
+    period: '2022年6月 - 2022年12月',
+    role: 'フルスタックエンジニア',
+    employmentType: '業務委託',
+    summary: 'Next.js/Nest.jsによる新規開発',
+    description: 'Qudenの新規開発。Next.js/Nest.jsを用いてフロント〜APIを一貫して担当。',
+    technologies: ['Next.js', 'Nest.js', 'TypeScript']
+  },
+  {
+    id: 'client-8',
+    title: 'Nuxt2学習資料整備',
+    type: 'client',
+    company: 'エクスコア',
+    period: '2021年11月 - 2022年5月',
+    role: 'フロントエンドエンジニア',
+    employmentType: '業務委託',
+    summary: '社内向けの学習資料/テンプレの整備',
+    description: '社内向けの学習資料/テンプレの整備、実装サポート。',
+    technologies: ['Nuxt2', 'Vue', 'TypeScript']
+  },
+  {
+    id: 'client-9',
+    title: '自社サービス開発',
+    type: 'client',
+    company: 'NPO法人 Clipper',
+    period: '2021年5月 - 現在',
+    role: 'フロントエンドエンジニア',
+    employmentType: '業務委託',
+    summary: '学習支援/地域支援系の自社開発',
+    description: '学習支援/地域支援系の自社開発に継続参画。',
+    technologies: ['React', 'TypeScript', 'Firebase']
+  },
+
+  // OSS貢献
+  {
+    id: 'oss-1',
+    title: 'liff-cli',
+    type: 'oss',
+    period: '2024年',
+    summary: 'ngrok SDK対応の実装',
+    description: 'liff-cliへのngrok SDK対応コントリビュート。LINE Developer Communityでの登壇も実施。',
+    technologies: ['TypeScript', 'Node.js'],
+    links: {
+      github: 'https://github.com/line/liff-cli/pull/17'
     }
   }
 ];
