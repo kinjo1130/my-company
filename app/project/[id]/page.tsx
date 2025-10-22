@@ -5,23 +5,24 @@ import ProjectMDXDetail from '@/components/ProjectMDXDetail';
 import { getProjectMDX, hasProjectMDX } from '@/lib/mdx';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function ProjectPage({ params }: PageProps) {
-  const project = projects.find(p => p.id === params.id);
+  const { id } = await params;
+  const project = projects.find(p => p.id === id);
 
   if (!project) {
     notFound();
   }
 
   // MDXファイルがあるかチェック
-  const hasMDX = await hasProjectMDX(params.id);
+  const hasMDX = await hasProjectMDX(id);
 
   if (hasMDX) {
-    const mdxContent = await getProjectMDX(params.id);
+    const mdxContent = await getProjectMDX(id);
     if (mdxContent) {
       return <ProjectMDXDetail project={project} mdxContent={mdxContent} />;
     }
