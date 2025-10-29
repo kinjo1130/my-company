@@ -11,14 +11,14 @@ export default function CareerDetail() {
       company: 'Helpfeel（Gyazo チーム）',
       role: 'フロントエンドエンジニア（インターン/業務委託）',
       description:
-        'Gyazo のフロント改善・機能追加。Next.js/React を中心に、既存コードの改修、パフォーマンス/UX 改善、開発運用まわりの整備などを継続。',
+        'Gyazo のフロント改善・機能追加。Ruby on Rails/React を中心に、既存コードの改修、パフォーマンス/UX 改善、新規機能の開発まわりや古い部分の整備などを継続。',
       projects: [
         {
           title: '既存機能の改善・UI最適化',
           client: 'Gyazo',
           role: 'フロントエンド',
           description:
-            'UI/UX 課題の抽出と修正、アクセシビリティ/描画最適化、ViewTransition API/アニメーションの検証などを通じて体験を磨き込み。',
+            'UI/UX 課題の抽出と修正、新規機能の開発や保守など実装案の立案から実装まで一貫して担当。',
           tech: ['React', 'Next.js', 'TypeScript'],
           duration: '継続中'
         }
@@ -27,15 +27,15 @@ export default function CareerDetail() {
     {
       period: '2023年1月 - 現在',
       company: '株式会社 ohmygod',
-      role: 'フロントエンドエンジニア（自社/受託）',
+      role: 'プロダクトエンジニア（自社/受託）',
       description:
-        'Firebase + Nuxt3/Next.js を軸に自社/受託プロダクトを開発。「ザ・スタンプラリー」「ザ・クーポン」などの BtoC 施策も担当。',
+        'Firebase + Nuxt3を軸に自社/受託プロダクトを開発。「ザ・スタンプラリー」「ザ・クーポン」などの BtoC 施策も担当。',
       projects: [
         {
           title: '自社/受託プロダクト群',
           client: '自社/クライアント',
           role: 'フロントエンド/実装リード',
-          description: 'UI 実装、DB連携などの機能をモジュール化し、短サイクルでの追加開発に貢献。',
+          description: 'UI 実装、DB設計、API実装まで機能を一気通貫して担当し、短サイクルでの追加開発に貢献。',
           tech: ['Nuxt3', 'Vue', 'Firebase', 'TypeScript'],
           duration: '継続中'
         }
@@ -52,7 +52,7 @@ export default function CareerDetail() {
           title: 'SPA 体験の強化',
           client: '社内プロジェクト',
           role: 'フロントエンド',
-          description: 'パフォーマンスと視覚効果の両立を意識して実装を最適化。',
+          description: 'サイト内のパフォーマンスと視覚効果の両立を意識して実装を最適化。',
           tech: ['React', 'TypeScript', 'ViewTransition API'],
           duration: '1ヶ月'
         }
@@ -77,8 +77,8 @@ export default function CareerDetail() {
     {
       period: '2023年9月 - 現在',
       company: 'Tavern',
-      role: 'フロントエンドエンジニア（受託）',
-      description: 'コーポレート/CMS 系のフロント実装、運用改善を担当。',
+      role: 'プロダクトエンジニア(業務委託)',
+      description: '自社サービスの開発、受託案件の実装を担当。',
     },
     {
       period: '2023年7月 - 2023年8月',
@@ -89,8 +89,8 @@ export default function CareerDetail() {
     {
       period: '2022年6月 - 2022年12月',
       company: 'Zipunk',
-      role: 'フルスタックエンジニア（Next.js / Nest.js）',
-      description: 'Quden の新規開発。Next.js/Nest.js を用いてフロント〜API を一貫して担当。',
+      role: 'フロントエンドエンジニア（Next.js / Nest.js）',
+      description: '自社サービスのQudenの新規機能開発。Next.jsを用いてフロントエンド周りの実装をしていました。',
     },
     {
       period: '2021年11月 - 2022年5月',
@@ -99,7 +99,7 @@ export default function CareerDetail() {
       description: '社内向けの学習資料/テンプレの整備、実装サポート。',
     },
     {
-      period: '2021年5月 - 現在',
+      period: '2021年5月 - 2023年3月',
       company: 'NPO法人 Clipper',
       role: '業務委託（自社サービス開発）',
       description: '学習支援/地域支援系の自社開発に継続参画。',

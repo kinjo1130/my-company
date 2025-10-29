@@ -624,12 +624,6 @@ export default function App() {
                 <p className="text-gray-600 text-sm">※土日祝日は返信が遅れる場合があります</p>
               </div>
 
-              <div className="bg-white p-6 border border-gray-200">
-                <h3 className="text-gray-900 mb-4">料金目安</h3>
-                <p className="text-gray-700 mb-1">時間単価：5,000円〜 / 時</p>
-                <p className="text-gray-700 mb-2">月額契約：応相談</p>
-                <p className="text-gray-600 text-sm">※プロジェクトの内容に応じて柔軟に対応いたします</p>
-              </div>
             </div>
           </div>
         </div>

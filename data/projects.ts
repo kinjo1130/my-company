@@ -48,6 +48,26 @@ export const projects: Project[] = [
     technologies: ['Next.js', 'TypeScript', 'Vercel', 'Video.js']
   },
   {
+    id: 'contract-4',
+    title: '社内向けにRAGを構築した業務効率化システム(PoC)',
+    type: 'contract',
+    period: '2025年7月 - 2025年12月',
+    role: 'インフラ兼バックエンドエンジニア',
+    summary: '簡単なフロントエンドの実装から、バックエンドの設計・構築と実装からインフラ構築まで担当',
+    description: '社内向けにRAGを構築して既存の業務だと人間が数時間かけて、チェックしていた業務をRAGを構築して、これまでの業務効率化するシステムのPoCを実施。バックエンドの設計・構築と実装からインフラ構築までを担当。',
+    details: [
+      'データベース設計と実装',
+      'API設計と実装',
+      'インフラ構築（Azure）',
+      'セキュリティ対策の実施'
+    ],
+    achievements: [
+      '業務効率が30%向上',
+      'ユーザーから高い評価を獲得',
+    ],
+    technologies: ['Next.js', 'Azure', 'TypeScript', 'Node.js', 'PostgreSQL', 'Express']
+  },
+  {
     id: 'contract-2',
     title: 'コーポレートサイトリニューアル',
     type: 'contract',
@@ -57,17 +77,17 @@ export const projects: Project[] = [
     description: '老朽化した静的HTMLサイトをNext.jsでリニューアル。モダンなUIデザイン、SEO最適化、管理画面の構築を実施。',
     details: [
       '静的サイトからNext.jsへの移行',
-      'ヘッドレスCMSの導入（Contentful）',
+      'wysiwyg管理画面の構築',
+      'データはすべてAPI側に寄せて、更新しやすいように設計',
       'SEO対策の実施',
       'パフォーマンス最適化',
       '問い合わせフォームの実装'
     ],
     achievements: [
       'ページ表示速度を60%改善',
-      'SEOスコアが大幅に向上',
       'コンテンツ更新の工数を70%削減'
     ],
-    technologies: ['Next.js', 'TypeScript', 'Contentful', 'Tailwind CSS', 'Vercel']
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Node.js']
   },
   {
     id: 'contract-3',
@@ -89,7 +109,7 @@ export const projects: Project[] = [
       'バンドルサイズを25%削減',
       'API呼び出し回数を50%削減'
     ],
-    technologies: ['React', 'TypeScript', 'React Query', 'Vite']
+    technologies: ['React', 'TypeScript', 'SWR']
   },
 
   // 個人プロダクト
@@ -159,7 +179,7 @@ export const projects: Project[] = [
     summary: 'Nuxt2のコードリーディングと改修',
     description: 'Nuxt2のコードリーディングと改修、PHP連携の動作検証。',
     duration: '2週間',
-    technologies: ['Nuxt2', 'PHP']
+    technologies: ['Nuxt2', 'PHP', 'Laravel' ]
   },
   {
     id: 'client-4',
@@ -206,7 +226,7 @@ export const projects: Project[] = [
     type: 'client',
     company: 'Zipunk',
     period: '2022年6月 - 2022年12月',
-    role: 'フルスタックエンジニア',
+    role: 'フルスタエンジニア',
     employmentType: '業務委託',
     summary: 'Next.js/Nest.jsによる新規開発',
     description: 'Qudenの新規開発。Next.js/Nest.jsを用いてフロント〜APIを一貫して担当。',
@@ -234,7 +254,7 @@ export const projects: Project[] = [
     employmentType: '業務委託',
     summary: '学習支援/地域支援系の自社開発',
     description: '学習支援/地域支援系の自社開発に継続参画。',
-    technologies: ['React', 'TypeScript', 'Firebase']
+    technologies: ['React', 'TypeScript', 'Firebase','Python']
   },
   {
     id: 'client-10',

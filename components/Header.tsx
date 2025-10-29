@@ -36,6 +36,9 @@ export default function Header() {
             <Link href={ROUTES.NEWS} className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
               お知らせ
             </Link>
+            <Link href={ROUTES.FAQ} className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
+              FAQ
+            </Link>
             <Link
               href={`${ROUTES.HOME}#${SECTIONS.CONTACT}`}
               className="bg-gray-900 text-white px-6 py-2.5 hover:bg-gray-800 transition-colors text-sm"
@@ -92,6 +95,13 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 お知らせ
+              </Link>
+              <Link
+                href={ROUTES.FAQ}
+                className="text-gray-600 hover:text-gray-900 transition-colors text-sm py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                FAQ
               </Link>
               <Link
                 href={`${ROUTES.HOME}#${SECTIONS.CONTACT}`}
