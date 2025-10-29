@@ -1,6 +1,5 @@
 import { OWNER } from '@/lib/constants';
-import { ArrowLeft, Calendar, Building2, User, Code, Github, ExternalLink } from 'lucide-react';
-import Link from 'next/link';
+import { Calendar, Building2, User, Code, Github, ExternalLink } from 'lucide-react';
 import Header from './Header';
 
 interface ProjectDetailProps {
@@ -26,10 +25,9 @@ interface ProjectDetailProps {
       website?: string;
     };
   };
-  onBack?: () => void;
 }
 
-export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
+export default function ProjectDetail({ project }: ProjectDetailProps) {
   const getTypeLabel = () => {
     if (project.type === 'client') {
       return project.employmentType || 'クライアントワーク';

@@ -1,10 +1,7 @@
 import Header from '@/components/Header';
 
-interface NewsListProps {
-  onBack?: () => void;
-}
 
-export default function NewsList({ onBack }: NewsListProps) {
+export default function NewsList() {
   const newsList = [
     {
       id: 'news-1',

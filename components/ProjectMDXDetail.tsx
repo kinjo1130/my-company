@@ -1,6 +1,5 @@
 import { OWNER } from '@/lib/constants';
-import { ArrowLeft, Calendar, User, Code } from 'lucide-react';
-import Link from 'next/link';
+import { Calendar, User, Code } from 'lucide-react';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';

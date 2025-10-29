@@ -6,6 +6,7 @@ export async function GET() {
     const posts = await getAllBlogPosts();
     return NextResponse.json(posts);
   } catch (error) {
+    console.log(error)
     return NextResponse.json(
       { error: 'ブログ記事の取得に失敗しました' },
       { status: 500 }

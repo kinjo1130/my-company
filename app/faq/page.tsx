@@ -5,6 +5,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import Header from '@/components/Header';
 import { faqs, faqCategories, type FAQCategory } from '@/data/faq';
 import { SITE } from '@/lib/constants';
+import Link from 'next/link';
 
 export default function FAQPage() {
   const [openId, setOpenId] = useState<string | null>(null);
@@ -128,12 +129,12 @@ export default function FAQPage() {
               お問い合わせフォームよりお気軽にご連絡ください。<br />
               2営業日以内にご返信いたします。
             </p>
-            <a
+            <Link
               href="/#contact"
               className="inline-flex items-center justify-center bg-gray-900 text-white px-8 py-3 hover:bg-gray-800 transition-colors"
             >
               お問い合わせはこちら
-            </a>
+            </Link>
           </div>
         </div>
       </section>

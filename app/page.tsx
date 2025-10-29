@@ -80,10 +80,6 @@ export default function App() {
     window.dispatchEvent(new PopStateEvent('popstate'));
   };
 
-  const navigateToCareer = () => {
-    navigate(ROUTES.CAREER);
-  };
-
   const navigateToHome = () => {
     navigate(ROUTES.HOME);
   };
@@ -111,7 +107,7 @@ export default function App() {
   }
 
   if (currentPage === 'news') {
-    return <NewsList onBack={navigateToHome} />;
+    return <NewsList />;
   }
 
   const contractProjects = projects.filter(p => p.type === 'contract');

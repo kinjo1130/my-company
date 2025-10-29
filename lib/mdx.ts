@@ -59,6 +59,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       content,
     };
   } catch (error) {
+    console.log(error)
     return null;
   }
 }
@@ -99,6 +100,7 @@ export async function getProjectMDX(id: string): Promise<ProjectMDX | null> {
       content,
     };
   } catch (error) {
+    console.log(error)
     return null;
   }
 }
@@ -108,6 +110,7 @@ export async function hasProjectMDX(id: string): Promise<boolean> {
     const fullPath = path.join(projectsDirectory, `${id}.mdx`);
     return fs.existsSync(fullPath);
   } catch (error) {
+    console.log(error)
     return false;
   }
 }

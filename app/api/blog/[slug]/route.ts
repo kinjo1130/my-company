@@ -18,6 +18,7 @@ export async function GET(
 
     return NextResponse.json(post);
   } catch (error) {
+    console.log(error)
     return NextResponse.json(
       { error: 'ブログの取得に失敗しました' },
       { status: 500 }

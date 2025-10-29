@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { SITE } from '@/lib/constants';
 
 export async function POST(request: Request) {
   try {
