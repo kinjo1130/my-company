@@ -281,5 +281,29 @@ export const projects: Project[] = [
     links: {
       github: 'https://github.com/line/liff-cli/pull/17'
     }
+  },
+  {
+    id: 'oss-2',
+    title: 'React公式ドキュメント日本語版',
+    type: 'oss',
+    period: '2025年10月',
+    summary: 'ドキュメントの誤字修正',
+    description: 'React Labs記事内の誤字を修正するドキュメント改善貢献。「使いやすや」を「使いやすさ」に修正。',
+    technologies: ['Markdown', 'Documentation'],
+    links: {
+      github: 'https://github.com/reactjs/ja.react.dev/pull/877'
+    }
+  },
+  {
+    id: 'oss-3',
+    title: 'Turso Docs',
+    type: 'oss',
+    period: '2025年10月',
+    summary: 'Prismaドキュメントの更新',
+    description: 'Prisma 6.16.0以降でdriverAdaptersプレビュー機能フラグが不要になったことを反映するドキュメント更新。GAに昇格した機能の情報を正確に記載。',
+    technologies: ['Prisma', 'Documentation', 'Markdown'],
+    links: {
+      github: 'https://github.com/tursodatabase/turso-docs/pull/319'
+    }
   }
 ];

@@ -250,7 +250,25 @@ export default function App() {
                 <div className="space-y-2">
                   <div className="flex items-start gap-3">
                     <div className="w-1.5 h-1.5 bg-gray-900 rounded-full mt-2"></div>
-                    <a href="https://www.kinjo.me/" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 underline">
+                    <a href="https://github.com/kinjo1130" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 underline">
+                      GitHub
+                    </a>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 bg-gray-900 rounded-full mt-2"></div>
+                    <a href="https://x.com/kinjyo1130" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 underline">
+                      X (Twitter)
+                    </a>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 bg-gray-900 rounded-full mt-2"></div>
+                    <a href="https://speakerdeck.com/kinjyo" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 underline">
+                      SpeakerDeck
+                    </a>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 bg-gray-900 rounded-full mt-2"></div>
+                    <a href="https://scrapbox.io/kinjo1130/" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 underline">
                       ポートフォリオサイト
                     </a>
                   </div>
